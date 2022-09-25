@@ -1,0 +1,18 @@
+1.	Khởi tạo project  laravel
+composer create-project laravel/laravel BE
+php artisan serve
+2.	Khởi tạo project Reactjs
+npx create-react-app fe
+cd fe
+npm start
+3.	sau khi clone Git ve may 
+git clone https://github.com/VuongNguyen2011/shoestore.git
+// FrontEnd
+cd fe
+npm install 
+// BackEnd
+cd BE
+composer install
+copy .env.example .env
+php artisan key:generate
+php artisan serve
