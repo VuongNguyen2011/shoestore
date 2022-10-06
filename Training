@@ -21,4 +21,4 @@ php artisan serve
 // bootstrap
 npm install bootstrap@next --save
 npm i @popperjs/core
-
+npm start
