@@ -16,3 +16,9 @@ composer install
 copy .env.example .env
 php artisan key:generate
 php artisan serve
+
+
+// bootstrap
+npm install bootstrap@next --save
+npm i @popperjs/core
+
