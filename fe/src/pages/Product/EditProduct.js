@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 class EditProduct extends Component {
     
     

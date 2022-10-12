@@ -17,3 +17,7 @@ copy .env.example .env
 php artisan key:generate
 php artisan serve
 
+
+@reduxjs/toolkit
+react-dom
+react-redux
