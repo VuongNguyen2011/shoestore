@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Component, Link } from "react";
+import { Component } from "react";
 class Home extends Component {
 
   state = {
@@ -48,7 +48,7 @@ class Home extends Component {
               <td>{item.price}</td>
               <td>
                 <a className="btn btn-success btn-sm" href={`edit-product/${item.id}`}>Edit</a>
-                <a className="btn btn-danger btn-sm" onClick={(e)=> this.deleteProduct(e,item.id)}>Delete</a>
+                {/* <a className="btn btn-danger btn-sm" onClick={(e)=> this.deleteProduct(e,item.id)}>Delete</a> */}
               </td>
             </tr>
           );
