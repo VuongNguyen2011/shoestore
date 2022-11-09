@@ -44,8 +44,11 @@ class Home extends Component {
           return (
             <tr key={item.id}>
               <td >{item.id}</td>
-              <td>{item.name}</td>
+              <td>{item.title}</td>
               <td>{item.price}</td>
+              <td>{item.categorySlug}</td>
+              <td>{item.slug}</td>
+              <td>{item.description}</td>
               <td>
                 <a className="btn btn-success btn-sm" href={`edit-product/${item.id}`}>Edit</a>
                 {/* <a className="btn btn-danger btn-sm" onClick={(e)=> this.deleteProduct(e,item.id)}>Delete</a> */}
@@ -73,6 +76,9 @@ class Home extends Component {
                     <th scope="col">#ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
+                    <th scope="col">categorySlug</th>
+                    <th scope="col">slug</th>
+                    <th scope="col">description</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>

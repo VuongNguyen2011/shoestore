@@ -10,6 +10,7 @@ git clone https://github.com/VuongNguyen2011/shoestore.git
 // FrontEnd
 cd fe
 npm install 
+npm install axios
 // BackEnd
 cd BE
 composer install
@@ -21,3 +22,10 @@ php artisan serve
 @reduxjs/toolkit
 react-dom
 react-redux
+
+
+4. Create Database + API 
+- php artisan make:model TenTable
+- php artisan make:migration create_table_products
+- php artisan make:controller API/_tenTableController
+- php artisan migrate

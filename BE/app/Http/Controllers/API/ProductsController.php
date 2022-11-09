@@ -10,8 +10,14 @@ class ProductsController extends Controller
 {
     public function store(Request $request){
         $product = new Product;
-        $product->name = $request->input('name');
+        $product->name = $request->input('title');
         $product->price = $request->input('price');
+        $product->price = $request->input('image01');
+        $product->price = $request->input('image02');
+        $product->price = $request->input('categorySlug');
+        $product->price = $request->input('slug');
+        $product->price = $request->input('description');
+
         $product->save();
 
         return response()->json([
@@ -37,8 +43,13 @@ class ProductsController extends Controller
     }
     public function update(Request $request,$id){
         $product = Product::find($id);
-        $product->name = $request->input('name');
+        $product->name = $request->input('title');
         $product->price = $request->input('price');
+        $product->price = $request->input('image01');
+        $product->price = $request->input('image02');
+        $product->price = $request->input('categorySlug');
+        $product->price = $request->input('slug');
+        $product->price = $request->input('description');
         $product->update();
 
         return response()->json([
@@ -54,4 +65,9 @@ class ProductsController extends Controller
             'message' => "Product Deleted Successfully "
         ]);
     }
+
+
+
+
+
 }

@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\API\ProductsController;
+use App\Http\Controllers\API\SizesController;
+use App\Http\Controllers\API\ColorsController;
+use App\Models\colors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//               API PRODUCT
 // ==========================================
 Route::get('/products',[ProductsController::class,'index']);
 Route::get('/edit-product/{id}',[ProductsController::class,'edit']);
@@ -21,6 +25,23 @@ Route::delete('/delete-product/{id}',[ProductsController::class,'delete']);
 Route::put('/update-product/{id}',[ProductsController::class,'update']);
 Route::post('/add-product',[ProductsController::class,'store']);
 //===========================================
+//               API COLORS
+// ==========================================
+Route::get('/colors',[ColorsController::class,'index']);
+Route::get('/edit-color/{id}',[ColorsController::class,'edit']);
+Route::delete('/delete-color/{id}',[ColorsController::class,'delete']);
+Route::put('/update-color/{id}',[ColorsController::class,'update']);
+Route::post('/add-color',[ColorsController::class,'add']);
+//===========================================
+//               API SIZES
+// ==========================================
+Route::get('/sizes',[SizesController::class,'index']);
+Route::get('/edit-size/{id}',[SizesController::class,'edit']);
+Route::delete('/delete-size/{id}',[SizesController::class,'delete']);
+Route::put('/update-size/{id}',[SizesController::class,'update']);
+Route::post('/add-size',[SizesController::class,'add']);
+//===========================================
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

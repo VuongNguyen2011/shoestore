@@ -12,14 +12,15 @@ import productData from '../assets/fake-data/products'
 
 const ProductViewModal = () => {
 
-    const productSlug = useSelector((state) => state.productModal.value)
+    const productID = useSelector((state) => state.productModal.value)
     const dispatch = useDispatch()
 
     const [product, setProduct] = useState(undefined)
 
     useEffect(() => {
-        setProduct(productData.getProductBySlug(productSlug))
-    }, [productSlug]);
+        setProduct(productData.getProductById(productID))
+        //console.log(productID)
+    }, [productID]);
 
     return (
         <div className={`product-view__modal ${product === undefined ? '' : 'active'}`}>

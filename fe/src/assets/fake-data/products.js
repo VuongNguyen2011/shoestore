@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const product_01_image_01 = require('../images/products/product-01 (1).jpg').default
 const product_01_image_02 = require('../images/products/product-01 (2).jpg').default
 // const product_01_image_03 = require('../images/products/product-01 (3).jpg').default
@@ -5,7 +7,7 @@ const product_01_image_02 = require('../images/products/product-01 (2).jpg').def
 const product_02_image_01 = require('../images/products/product-02 (1).jpg').default
 const product_02_image_02 = require('../images/products/product-02 (2).jpg').default
 
-const product_03_image_01 = require('../images/products/product-03 (1).jpg').default
+const product_03_image_01 = require('../images/products/product-03 (1).jpg')
 const product_03_image_02 = require('../images/products/product-03 (2).jpg').default
 
 const product_04_image_01 = require('../images/products/product-04 (1).jpg').default
@@ -34,6 +36,7 @@ const product_11_image_02 = require('../images/products/product-11 (2).jpg').def
 
 const product_12_image_01 = require('../images/products/product-12 (1).jpg').default
 const product_12_image_02 = require('../images/products/product-12 (2).jpg').default
+
 
 const products = [
     {
@@ -236,17 +239,49 @@ const products = [
     },
     // 18 products
 ]
+const state = {
+    products: [],
+    loading: true
+  }
+async function get(){
 
+    const res = await axios.get('http://localhost:8000/api/products');
+    
+    console.log(state.data.product);
+}
+  
+const getProduct = ()=>{
+    const res = axios.get('http://localhost:8000/api/products');
+    console.log(res.data.status);
+    if (res.data.status === 200) {
+        res.data.products.map((item, index) => {
+            item.image01 = require(`../images/products/${item.image01}`).default
+            item.image02 = require(`../images/products/${item.image02}`).default
+        })
+        console.log(res.data.products)
+
+        this.setState({
+            products: res.data.products,
+            loading: false
+        });
+    }
+}
 const getAllProducts = () => products
-
 const getProducts = (count) => {
     const max = products.length - count
     const min = 0
-    const start = Math.floor(Math.random() * (max - min) + min)
+    const start = 1
+    //const start = Math.floor(Math.random() * (max - min) + min)
+    //console.log(products.slice(start, start + count));
     return products.slice(start, start + count)
 }
 
 const getProductBySlug = (slug) => products.find(e => e.slug === slug)
+const getProductById = (id) => {
+    const res = axios.get('http://localhost:8000/api/edit-product/1');
+    console.log(res)
+    // products.find(e => e.id === id)
+}
 
 const getCartItemsInfo = (cartItems) => {
     let res = []
@@ -269,7 +304,11 @@ const productData = {
     getAllProducts,
     getProducts,
     getProductBySlug,
-    getCartItemsInfo
+    getCartItemsInfo,
+    getProduct,
+    get,
+    getProductById
+    
 }
 
 export default productData

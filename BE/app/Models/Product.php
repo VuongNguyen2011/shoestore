@@ -10,7 +10,13 @@ class Product extends Model
     use HasFactory;
     protected $table ="products";
     protected $filtable = [
-        'name',
-        'price'
+        'title',
+        'price',
+        'image01',
+        'image02',
+        'categorySlug',
+        'slug',
+        'description'
     ];
+
 }

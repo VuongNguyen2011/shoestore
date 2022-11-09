@@ -11,16 +11,17 @@ import Button from './Button'
 
 import numberWithCommas from '../utils/numberWithCommas'
 
+
 const ProductCard = props => {
 
     const dispatch = useDispatch()
-
+    //const x = require('../images/products/product-01 (1).jpg').default;
     return (
         <div className="product-card">
             <Link to={`/catalog/${props.slug}`}>
                 <div className="product-card__image">
-                    <img src={props.img01} alt="" />
-                    <img src={props.img02} alt="" />
+                    <img src={`${props.img01}`} alt="" />
+                    <img src={`${props.img02}`} alt="" />
                 </div>
                 <h3 className="product-card__name">{props.name}</h3>
                 <div className="product-card__price">
@@ -35,7 +36,10 @@ const ProductCard = props => {
                     size="sm"    
                     icon="bx bx-cart"
                     animate={true}
-                    onClick={() => dispatch(set(props.slug))}
+                    onClick={() => {
+                        dispatch(set(props.id))
+                        //console.log(props.list);
+                    }}
                 >
                     chọn mua
                 </Button>

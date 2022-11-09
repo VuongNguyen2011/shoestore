@@ -7,7 +7,17 @@ class Product extends Component {
         name: '',
         price: ''
     }
-
+    getProduct = ()=>{
+        const res = axios.get('http://localhost:8000/api/products');
+        console.log(res.data.status);
+        if (res.data.status === 200) {
+          this.setState({
+            products: res.data.products,
+            loading: false
+          });
+        }
+    }
+    
     handleInput = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -39,6 +49,7 @@ class Product extends Component {
                                 <a className="btn btn-primary" href="/">Back</a>
                             </div>
                             <div className="card-body">
+                                
                                 <form onSubmit={this.saveProduct}>
                                     <div class="form-group" style={{ marginBottom: "15px" }}>
                                         <label>Product Name</label>
