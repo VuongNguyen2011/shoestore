@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
+
+import "../../../assets/css/grid.css";
+import "../../../assets/css/index.css";
+import "../../../assets/css/theme.css";
+
 function Products() {
   const [categorylist, setCategorylist] = useState([]);
   const [colorlist, setColorlist] = useState([]);

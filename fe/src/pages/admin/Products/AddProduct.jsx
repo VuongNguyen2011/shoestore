@@ -3,6 +3,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
+import "../../../assets/css/grid.css";
+import "../../../assets/css/index.css";
+import "../../../assets/css/theme.css";
+
 function AddProduct() {
   const [categorylist, setCategorylist] = useState([]);
   const [productInput, setProduct] = useState({
@@ -105,7 +109,7 @@ function AddProduct() {
     <div className="container-fluid px-4">
       <div className="card mt-4">
         <div className="card-header">
-          <h4>
+          <h2>
             Add Product
             <Link
               to="/admin/view-product"
@@ -113,7 +117,7 @@ function AddProduct() {
             >
               View Product
             </Link>
-          </h4>
+          </h2>
         </div>
         <div className="card-body">
           <form onSubmit={submitProduct} encType="multipart/form-data">
