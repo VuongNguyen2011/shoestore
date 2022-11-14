@@ -6,7 +6,8 @@ import Header from './Header'
 import Footer from './Footer'
 import ProductViewModal from './ProductViewModal'
 
-import Routes from '../routes/Routes'
+import ClientRoute from '../routes/ClientRoute'
+import AdminRoute from '../routes/AdminRoute'
 
 const Layout = () => {
     return (
@@ -16,7 +17,7 @@ const Layout = () => {
                     <Header {...props}/>
                     <div className="container">
                         <div className="main">
-                            <Routes/>
+                            <ClientRoute/>
                         </div>
                     </div>
                     <Footer/>

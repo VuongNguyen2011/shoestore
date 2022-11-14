@@ -1,22 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './reportWebVitals'
 
-import { store } from './redux/store'
+import { createStore } from 'redux'
+
 import { Provider } from 'react-redux'
 
-import './assets/boxicons-2.0.7/css/boxicons.min.css'
-import './sass/index.scss'
+import rootReducer from './redux/reducers'
 
-import Layout from './components/Layout'
-// import App from './app'
+import './assets/boxicons-2.0.7/css/boxicons.min.css'
+import './assets/css/grid.css'
+import './assets/css/theme.css'
+import './assets/css/index.css'
+
+import Layout from './components/layout/Layout'
+
+const store = createStore(
+  rootReducer
+)
+
+document.title = 'Tua CRM'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
+    <React.StrictMode>
       <Layout />
-    </Provider>
-  </React.StrictMode>,
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 

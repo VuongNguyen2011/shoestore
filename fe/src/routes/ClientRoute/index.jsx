@@ -2,12 +2,12 @@ import React from 'react'
 
 import { Route, Switch } from 'react-router-dom'
 
-import Home from '../pages/Home'
-import Catalog from '../pages/Catalog'
-import Cart from '../pages/Cart'
-import Product from '../pages/Product'
-import test from '../pages/test'
-const Routes = () => {
+import Home from '../../pages/Home'
+import Catalog from '../../pages/Catalog'
+import Cart from '../../pages/Cart'
+import Product from '../../pages/Product'
+import test from '../../pages/test'
+export default function ClientRoute() {
     return (
         <Switch>
             <Route path='/' exact component={Home}/>
@@ -18,5 +18,3 @@ const Routes = () => {
         </Switch>
     )
 }
-
-export default Routes
