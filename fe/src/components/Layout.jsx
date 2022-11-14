@@ -10,7 +10,7 @@ import Routes from '../routes/Routes'
 
 const Layout = () => {
     return (
-        <BrowserRouter>
+        
             <Route render={props => (
                 <div>
                     <Header {...props}/>
@@ -23,7 +23,6 @@ const Layout = () => {
                     <ProductViewModal/>
                 </div>
             )}/>
-        </BrowserRouter>
     )
 }
 
