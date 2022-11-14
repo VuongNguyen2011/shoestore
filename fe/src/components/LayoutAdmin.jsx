@@ -63,7 +63,7 @@ const LayoutAdmin = () => {
                 <Route path="/admin/colors" component={Colors} />
                 <Route path="/admin/addcolor" component={AddColor} />
                 <Route path="/admin/editcolor/:id" component={EditColor} />
-                <Route path="admin/sizes" component={Sizes} />
+                <Route path="/admin/sizes" component={Sizes} />
                 <Route path="/admin/addsize" component={AddSize} />
                 <Route path="/admin/editsize/:id" component={EditSize} />
                 <Route path="/admin/categories" component={Category} />
