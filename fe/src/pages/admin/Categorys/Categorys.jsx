@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import "../../../assets/css/grid.css";
-// import "../../../assets/css/index.css";
-// import "../../../assets/css/theme.css";
+import "../../../assets/css/grid.css";
+import "../../../assets/css/index.css";
+import "../../../assets/css/theme.css";
 
 class Categorys extends Component {
   state = {

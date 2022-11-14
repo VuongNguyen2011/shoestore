@@ -3,6 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import swal from "sweetalert";
 
+import "../../../assets/css/grid.css";
+import "../../../assets/css/index.css";
+import "../../../assets/css/theme.css";
+
 function EditProduct(props) {
   const history = useHistory();
 
