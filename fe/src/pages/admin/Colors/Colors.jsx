@@ -84,7 +84,7 @@ class Colors extends Component {
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <h4>Colors</h4>
-                  <a className="btn btn-primary" href="/AddColor">
+                  <a className="btn btn-primary" href="/admin/addcolor">
                     Add Color
                   </a>
                 </div>
