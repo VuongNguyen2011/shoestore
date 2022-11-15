@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ProductsController;
 use App\Http\Controllers\API\SizesController;
 use App\Http\Controllers\API\ColorsController;
@@ -40,6 +41,15 @@ Route::get('/edit-size/{id}',[SizesController::class,'edit']);
 Route::delete('/delete-size/{id}',[SizesController::class,'delete']);
 Route::put('/update-size/{id}',[SizesController::class,'update']);
 Route::post('/add-size',[SizesController::class,'add']);
+//===========================================
+//===========================================
+//               API Categorys
+// ==========================================
+Route::get('/categorys',[CategoryController::class,'index']);
+Route::get('/edit-category/{id}',[CategoryController::class,'edit']);
+Route::delete('/delete-category/{id}',[CategoryController::class,'delete']);
+Route::put('/update-category/{id}',[CategoryController::class,'update']);
+Route::post('/add-category',[CategoryController::class,'add']);
 //===========================================
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
