@@ -83,7 +83,7 @@ class Categorys extends Component {
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <h4>Category</h4>
-                  <a className="btn btn-primary" href="/AddCategory">
+                  <a className="btn btn-primary" href="/admin/AddCategory">
                     Add Category
                   </a>
                 </div>

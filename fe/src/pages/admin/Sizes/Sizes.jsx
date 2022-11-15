@@ -84,7 +84,7 @@ class Sizes extends Component {
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <h4>Sizes</h4>
-                  <a className="btn btn-primary" href="/AddSize">
+                  <a className="btn btn-primary" href="/admin/AddSize">
                     Add Size
                   </a>
                 </div>

@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sizes extends Model
+class ColorDetails extends Model
 {
     use HasFactory;
-    protected $table ="sizes";
+    protected $table ="colorDetails";
     protected $filtable = [
-        'name',
+        'idProduct',
+        'idColor'
     ];
 }

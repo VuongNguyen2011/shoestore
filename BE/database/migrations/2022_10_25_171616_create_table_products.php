@@ -19,9 +19,10 @@ class CreateTableProducts extends Migration
             $table->float('price');
             $table->string('image01');
             $table->string('image02');
+            $table->integer('qty');
             $table->string('categorySlug');
-            $table->string('slug');
             $table->string('description');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

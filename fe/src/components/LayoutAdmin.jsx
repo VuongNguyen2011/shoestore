@@ -8,7 +8,7 @@ import TopNav from "./topnav/TopNav";
 import { Route, Switch } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-
+import RoutesAdmin from '../routes/RoutesAdmin'
 import ThemeAction from "../redux/actions/ThemeAction";
 import rootReducer from "../redux/reducers";
 import { createStore } from "redux";
@@ -56,23 +56,7 @@ const LayoutAdmin = () => {
           <div className="layout__content">
             <TopNav />
             <div className="layout__content-main">
-              <Switch>
-                <Route path="/admin" exact component={Dashboard} />
-                <Route path="/admin/customers" component={Customers} />
-                <Route path="/admin/products" component={Products} />
-                <Route path="/admin/colors" component={Colors} />
-                <Route path="/admin/addcolor" component={AddColor} />
-                <Route path="/admin/editcolor/:id" component={EditColor} />
-                <Route path="/admin/sizes" component={Sizes} />
-                <Route path="/admin/addsize" component={AddSize} />
-                <Route path="/admin/editsize/:id" component={EditSize} />
-                <Route path="/admin/categories" component={Category} />
-                <Route path="/admin/addcategories" component={AddCategory} />
-                <Route path="/admin/editcategory/:id" component={EditCategory} />
-                <Route path="/admin/products" component={Products} />
-                <Route path="/admin/addproduct" component={AddProduct} />
-                <Route path="/admin/editproduct/:id" component={EditProduct} /> 
-              </Switch>
+              <RoutesAdmin/>
             </div>
           </div>
         </div>

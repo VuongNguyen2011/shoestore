@@ -14,9 +14,10 @@ class Product extends Model
         'price',
         'image01',
         'image02',
+        'qty',
         'categorySlug',
-        'slug',
-        'description'
+        'description',
+        'status'
     ];
 
 }

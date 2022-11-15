@@ -1,122 +1,194 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import swal from "sweetalert";
-
+import { useForm } from "react-hook-form";
+import { storage } from "../../../firebase";
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 import "../../../assets/css/grid.css";
 import "../../../assets/css/index.css";
 import "../../../assets/css/theme.css";
 
-function EditProduct(props) {
-  const history = useHistory();
-
+function EditProduct() {
   const [categorylist, setCategorylist] = useState([]);
+  const [colorlist, setColorlist] = useState([]);
+  const [sizelist, setSizelist] = useState([]);
+
   const [productInput, setProduct] = useState({
-    category_id: "",
-    slug: "",
-    name: "",
+    title: "",
+    price: "",
+    qty: "",
     description: "",
 
-    meta_title: "",
-    meta_keyword: "",
-    meta_descrip: "",
-
-    selling_price: "",
-    original_price: "",
-    qty: "",
-    brand: "",
+    categorySlug: "",
+    image01: "",
+    image02: "",
+    status: "",
+    colors: [],
+    sizes: [],
   });
-  const [pricture, setPicture] = useState([]);
+  const [pricture, setPicture] = useState();
+  const [pricture1, setPicture1] = useState();
   const [errorlist, setError] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+  const [selectSize, setSelectSize] = useState([]);
   const handleInput = (e) => {
     e.persist();
     setProduct({ ...productInput, [e.target.name]: e.target.value });
   };
-
+  const handleCheckBoxSize = (e) => {
+    setSelectSize([]);
+    //console.log(e.target);
+  };
   const handleImage = (e) => {
     setPicture({ image: e.target.files[0] });
+    //console.log(pricture.image);
   };
-
-  const [allcheckbox, setCheckboxes] = useState([]);
-  const handleCheckbox = (e) => {
-    e.persist();
-    setCheckboxes({ ...allcheckbox, [e.target.name]: e.target.checked });
+  const handleChange = (e) => {
+    setProduct({
+      image01: e.target.files[0],
+    });
+  };
+  const handleImage1 = (e) => {
+    setPicture1({ image: e.target.files[0] });
+    //console.log(pricture1.image);
   };
 
   useEffect(() => {
-    axios.get(`/api/all-category`).then((res) => {
+    let isMounted = true;
+
+    axios.get(`http://localhost:8000/api/categorys`).then((res) => {
       if (res.data.status === 200) {
-        setCategorylist(res.data.category);
+        setCategorylist(res.data.categorys);
       }
+      console.log(res.data.categorys);
     });
-
-    const product_id = props.match.params.id;
-    axios.get(`/api/edit-product/${product_id}`).then((res) => {
+    axios.get(`http://localhost:8000/api/sizes`).then((res) => {
       if (res.data.status === 200) {
-        // console.log(res.data.product);
-        setProduct(res.data.product);
-        setCheckboxes(res.data.product);
-      } else if (res.data.status === 404) {
-        swal("Error", res.data.message, "error");
-        history.push("/admin/view-product");
+        setSizelist(res.data.sizes);
       }
-      setLoading(false);
+      console.log(res.data.sizes);
     });
-  }, [props.match.params.id, history]);
+    axios.get(`http://localhost:8000/api/colors`).then((res) => {
+      if (res.data.status === 200) {
+        setColorlist(res.data.colors);
+      }
+      console.log(res.data.colors);
+    });
+    // listAll(imageListRef).then((res)=>{
+    //   res.items.forEach((item)=>{
+    //     getDownloadURL(item).then((url)=>{
 
-  const updateProduct = (e) => {
-    e.preventDefault();
-
-    const product_id = props.match.params.id;
-
+    //     })
+    //   })
+    // })
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+  // const renderPhoto = (source) =>{
+  //     // return <img src={source} />
+  // }
+  const { handleSubmit, register } = useForm();
+  const [dataSubmit, setDataSubmit] = useState({});
+  const imageListRef = ref(storage, "images/")
+  const submitProduct = async (data) => {
+    setDataSubmit(data);
+    //    e.preventDefault();
+    productInput.colors = data.colors;
+    productInput.sizes = data.sizes;
     const formData = new FormData();
-    formData.append("image", pricture.image);
-    formData.append("category_id", productInput.category_id);
-    formData.append("slug", productInput.slug);
-    formData.append("name", productInput.name);
-    formData.append("description", productInput.description);
-
-    formData.append("meta_title", productInput.meta_title);
-    formData.append("meta_keyword", productInput.meta_keyword);
-    formData.append("meta_descrip", productInput.meta_descrip);
-
-    formData.append("selling_price", productInput.selling_price);
-    formData.append("original_price", productInput.original_price);
+    formData.append("title", productInput.title);
+    formData.append("price", productInput.price);
     formData.append("qty", productInput.qty);
-    formData.append("brand", productInput.brand);
-    formData.append("featured", allcheckbox.featured ? "1" : "0");
-    formData.append("popular", allcheckbox.popular ? "1" : "0");
-    formData.append("status", allcheckbox.status ? "1" : "0");
-
-    axios.post(`/api/update-product/${product_id}`, formData).then((res) => {
-      if (res.data.status === 200) {
-        swal("Success", res.data.message, "success");
-        console.log(allcheckbox);
-        setError([]);
-      } else if (res.data.status === 422) {
-        swal("All Fields are mandetory", "", "error");
-        setError(res.data.errors);
-      } else if (res.data.status === 404) {
-        swal("Error", res.data.message, "error");
-        history.push("/admin/view-product");
-      }
+    formData.append("description", productInput.description);
+    formData.append("categorySlug", productInput.categorySlug);
+    formData.append("status", productInput.status);
+    formData.append("colors", productInput.colors);
+    formData.append("sizes", productInput.sizes);
+    
+    //console.log(pricture.image)
+     const imageRef = ref(storage, `images/Screenshot_20221026_032314.png08a864bc-56b8-4e71-87f5-c2244ed5b2dd`);
+    uploadBytes(imageRef, pricture.image).then(() => {
+      getDownloadURL(ref(storage, imageRef.fullPath))
+      .then((url) => {
+        console.log(url);
+      })
+      .catch((error) => {
+        // Handle any errors
+      });
     });
-  };
+    const imageRef1 = ref(storage, `images/${pricture1.image.name + v4()}`);
+    uploadBytes(imageRef1, pricture1.image).then(() => {
+      getDownloadURL(ref(storage, imageRef1.fullPath))
+      .then((url) => {
+        console.log(url);
+      })
+      .catch((error) => {
+        // Handle any errors
+      });
+    });
+    formData.append("image01", imageRef.fullPath);
+    formData.append("image02", imageRef1.fullPath);
 
-  if (loading) {
-    return <h4>Edit Product Data Loading...</h4>;
-  }
+for (const value of formData.values()) {
+      console.log(value);
+    }
+
+    // });
+    // await axios.post('http://localhost:8000/api/add-product',{
+    //     headers: { "Content-Type": "multipart/form-data" }
+    // }, formData).then(res => {
+    //     if (res.data.status === 200) {
+    //         //swal("Success",res.data.message,"success");
+    //         setProduct({
+    //             ...productInput,
+    //             title: '',
+    //             price: '',
+    //             qty: '',
+    //             description: '',
+
+    //             categorySlug: '',
+    //             image01: '',
+    //             image02: '',
+    //             status: '',
+    //         });
+    //         setError([]);
+    //     }
+    //     else{
+    //         //swal("All Fields are mandetory", "", "error");
+    //         //setError(res.data.errors);
+    //         console.log(res)
+    //     }
+    //     console.log(res.data.message);
+    // }).catch(e=>{
+    //     console.log(e);
+    // });
+
+    await axios({
+      method: "POST",
+      url: "http://localhost:8000/api/add-product",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
+  };
 
   return (
     <div className="container-fluid px-4">
       <div className="card mt-4">
         <div className="card-header">
           <h4>
-            Edit Product
+            Add Product
             <Link
-              to="/admin/view-product"
+              to="/admin/products"
               className="btn btn-primary btn-sm float-end"
             >
               View Product
@@ -124,179 +196,39 @@ function EditProduct(props) {
           </h4>
         </div>
         <div className="card-body">
-          <form onSubmit={updateProduct} encType="multipart/form-data">
-            <ul className="nav nav-tabs" id="myTab" role="tablist">
-              <li className="nav-item" role="presentation">
-                <button
-                  className="nav-link active"
-                  id="home-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#home"
-                  type="button"
-                  role="tab"
-                  aria-controls="home"
-                  aria-selected="true"
-                >
-                  Home
-                </button>
-              </li>
-              <li className="nav-item" role="presentation">
-                <button
-                  className="nav-link"
-                  id="seotags-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#seotags"
-                  type="button"
-                  role="tab"
-                  aria-controls="seotags"
-                  aria-selected="false"
-                >
-                  SEO Tags
-                </button>
-              </li>
-              <li className="nav-item" role="presentation">
-                <button
-                  className="nav-link"
-                  id="otherdetails-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#otherdetails"
-                  type="button"
-                  role="tab"
-                  aria-controls="otherdetails"
-                  aria-selected="false"
-                >
-                  Other Details
-                </button>
-              </li>
-            </ul>
+          <form onSubmit={handleSubmit(submitProduct)} encType="multipart/form-data">
             <div className="tab-content" id="myTabContent">
               <div
                 className="tab-pane card-body border fade show active"
+                style={{ display: "flex" }}
                 id="home"
                 role="tabpanel"
                 aria-labelledby="home-tab"
               >
-                <div className="form-group mb-3">
-                  <label>Select Category</label>
-                  <select
-                    name="category_id"
-                    onChange={handleInput}
-                    value={productInput.category_id}
-                    className="form-control"
-                  >
-                    <option>Select Category</option>
-                    {categorylist.map((item) => {
-                      return (
-                        <option value={item.id} key={item.id}>
-                          {item.name}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  <small className="text-danger">{errorlist.category_id}</small>
-                </div>
-                <div className="form-group mb-3">
-                  <label>Slug</label>
-                  <input
-                    type="text"
-                    name="slug"
-                    onChange={handleInput}
-                    value={productInput.slug}
-                    className="form-control"
-                  />
-                  <small className="text-danger">{errorlist.slug}</small>
-                </div>
-                <div className="form-group mb-3">
-                  <label>Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    onChange={handleInput}
-                    value={productInput.name}
-                    className="form-control"
-                  />
-                  <small className="text-danger">{errorlist.name}</small>
-                </div>
-                <div className="form-group mb-3">
-                  <label>Description</label>
-                  <textarea
-                    name="description"
-                    onChange={handleInput}
-                    value={productInput.description}
-                    className="form-control"
-                  ></textarea>
-                </div>
-              </div>
-              <div
-                className="tab-pane card-body border fade"
-                id="seotags"
-                role="tabpanel"
-                aria-labelledby="seotags-tab"
-              >
-                <div className="form-group mb-3">
-                  <label>Meta Title</label>
-                  <input
-                    type="text"
-                    name="meta_title"
-                    onChange={handleInput}
-                    value={productInput.meta_title}
-                    className="form-control"
-                  />
-                  <small className="text-danger">{errorlist.meta_title}</small>
-                </div>
-                <div className="form-group mb-3">
-                  <label>Meta Keyword</label>
-                  <textarea
-                    name="meta_keyword"
-                    onChange={handleInput}
-                    value={productInput.meta_keyword}
-                    className="form-control"
-                  ></textarea>
-                </div>
-                <div className="form-group mb-3">
-                  <label>Meta Description</label>
-                  <textarea
-                    name="meta_descrip"
-                    onChange={handleInput}
-                    value={productInput.meta_descrip}
-                    className="form-control"
-                  ></textarea>
-                </div>
-              </div>
-              <div
-                className="tab-pane card-body border fade"
-                id="otherdetails"
-                role="tabpanel"
-                aria-labelledby="otherdetails-tab"
-              >
-                <div className="row">
-                  <div className="col-md-4 form-group mb-3">
-                    <label>Selling Price</label>
+                <div className="col-6">
+                  <div className="form-group mb-3">
+                    <label>Name</label>
                     <input
                       type="text"
-                      name="selling_price"
+                      name="title"
                       onChange={handleInput}
-                      value={productInput.selling_price}
+                      value={productInput.title}
                       className="form-control"
                     />
-                    <small className="text-danger">
-                      {errorlist.selling_price}
-                    </small>
+                    <small className="text-danger">{errorlist.title}</small>
                   </div>
-                  <div className="col-md-4 form-group mb-3">
-                    <label>Original Price</label>
+                  <div className="form-group mb-3">
+                    <label>Price</label>
                     <input
                       type="text"
-                      name="original_price"
+                      name="price"
                       onChange={handleInput}
-                      value={productInput.original_price}
+                      value={productInput.price}
                       className="form-control"
                     />
-                    <small className="text-danger">
-                      {errorlist.original_price}
-                    </small>
+                    <small className="text-danger">{errorlist.price}</small>
                   </div>
-                  <div className="col-md-4 form-group mb-3">
+                  <div className="form-group mb-3">
                     <label>Quantity</label>
                     <input
                       type="text"
@@ -307,61 +239,140 @@ function EditProduct(props) {
                     />
                     <small className="text-danger">{errorlist.qty}</small>
                   </div>
-                  <div className="col-md-4 form-group mb-3">
-                    <label>Brand</label>
-                    <input
-                      type="text"
-                      name="brand"
+                  <div className="form-group mb-3">
+                    <label>Description</label>
+                    <textarea
+                      name="description"
                       onChange={handleInput}
-                      value={productInput.brand}
+                      value={productInput.description}
                       className="form-control"
-                    />
-                    <small className="text-danger">{errorlist.brand}</small>
+                    ></textarea>
+                  </div>
+                </div>
+                <div className="col-6">
+                  <div className="col-md-8 form-group mb-3">
+                    <label>Select Category</label>
+                    <select
+                      name="categorySlug"
+                      onChange={handleInput}
+                      value={productInput.categorySlug}
+                      className="form-control"
+                    >
+                      <option>Select Category</option>
+                      {categorylist.map((item) => {
+                        return (
+                          <option value={item.id} key={item.id}>
+                            {item.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <small className="text-danger">
+                      {errorlist.categorySlug}
+                    </small>
                   </div>
                   <div className="col-md-8 form-group mb-3">
-                    <label>Image</label>
+                    <label>Image01</label>
                     <input
                       type="file"
-                      name="image"
+                      name="image01"
                       onChange={handleImage}
                       className="form-control"
                     />
-                    <img
-                      src={`http://localhost:8000/${productInput.image}`}
-                      width="50px"
-                      alt={productInput.name}
-                    />
-                    <small className="text-danger">{errorlist.image}</small>
+                    {/* <div className="result">
+                                            {renderPhoto(pricture)}
+                                        </div> */}
+                    <small className="text-danger">{errorlist.image01}</small>
                   </div>
-                  <div className="col-md-4 form-group mb-3">
-                    <label>Featured (checked=shown)</label>
+                  <div className="col-md-8 form-group mb-3">
+                    <label>Image02</label>
                     <input
-                      type="checkbox"
-                      name="featured"
-                      onChange={handleCheckbox}
-                      defaultChecked={allcheckbox.featured === 1 ? true : false}
-                      className="w-50 h-50"
+                      type="file"
+                      name="image02"
+                      onChange={handleImage1}
+                      className="form-control"
                     />
+                    <small className="text-danger">{errorlist.image02}</small>
                   </div>
-                  <div className="col-md-4 form-group mb-3">
-                    <label>Popular (checked=shown)</label>
-                    <input
-                      type="checkbox"
-                      name="popular"
-                      onChange={handleCheckbox}
-                      defaultChecked={allcheckbox.popular === 1 ? true : false}
-                      className="w-50 h-50"
-                    />
-                  </div>
-                  <div className="col-md-4 form-group mb-3">
-                    <label>Status (checked=Hidden)</label>
-                    <input
-                      type="checkbox"
+
+                  <div className="col-md-8 form-group mb-3">
+                    <label>Status</label>
+                    <select
                       name="status"
-                      onChange={handleCheckbox}
-                      defaultChecked={allcheckbox.status === 1 ? true : false}
-                      className="w-50 h-50"
-                    />
+                      onChange={handleInput}
+                      value={productInput.status}
+                      className="form-control"
+                    >
+                      <option selected value={"0"}>Tắt kích hoạt</option>
+                      <option value={"1"}>Kích hoạt</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* <div className="col-md-4 form-group mb-3">
+                                    <label>Featured (checked=shown)</label>
+                                    <input type="checkbox" name="featured" onChange={handleInput} value={productInput.featured} className="w-50 h-50" />
+                                </div> */}
+              </div>
+              <div className="row">
+                <div className="col-md-8 form-group mb-3">
+                  <label>Select Sizes</label>
+                  <div style={{ display: "flex", marginLeft: "15px" }}>
+                    {sizelist.map((item) => {
+                      return (
+                        <div
+                          className="form-group"
+                          style={{ marginRight: "15px" }}
+                        >
+                          {/* <input type="checkbox" name="featured" onChange={handleInput} value={productInput.featured} style={{ marginRight: '10px' }} />
+                                                        <label>{item.name}</label> */}
+                          <input
+                            type="checkbox"
+                            name="sizes"
+                            class="btn-check btn-checkTest"
+                            id={item.id + item.name}
+                            autocomplete="off"
+                            value={item.id}
+                            {...register("sizes")}
+                          />
+                          <label
+                            class="btn btn-outline-primary"
+                            for={item.id + item.name}
+                          >
+                            {item.name}
+                          </label>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="col-md-8 form-group mb-3">
+                  <label>Select Color</label>
+                  <div style={{ display: "flex", marginLeft: "15px" }}>
+                    {colorlist.map((item) => {
+                      return (
+                        <div
+                          className="form-group"
+                          style={{ marginRight: "15px" }}
+                        >
+                          <input
+                            type="checkbox"
+                            name="colors"
+                            class="btn-check btn-checkTest"
+                            id={item.id + item.name}
+                            autocomplete="off"
+                            value={item.id}
+                            {...register("colors")}
+                          />
+                          <label
+                            class="btn btn-outline-primary"
+                            for={item.id + item.name}
+                          >
+                            {item.name}
+                          </label>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

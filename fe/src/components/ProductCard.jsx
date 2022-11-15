@@ -13,13 +13,14 @@ import numberWithCommas from "../utils/numberWithCommas";
 
 const ProductCard = (props) => {
   const dispatch = useDispatch();
+  
   //const x = require('../images/products/product-01 (1).jpg').default;
   return (
     <div className="product-card">
       <Link to={`/catalog/${props.slug}`}>
         <div className="product-card__image">
-          <img src={`${props.img01}`} alt="" />
-          <img src={`${props.img02}`} alt="" />
+          <img id="img1" src={`${props.img01}`} alt="" />
+          <img id="img2" src={`${props.img02}`} alt="" />
         </div>
         <h3 className="product-card__name">{props.name}</h3>
         <div className="product-card__price">
