@@ -4,6 +4,7 @@ import axios from "axios";
 import "../../../assets/css/grid.css";
 import "../../../assets/css/index.css";
 import "../../../assets/css/theme.css";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
 class Products extends Component {
   state = {
@@ -14,6 +15,19 @@ class Products extends Component {
     const res = await axios.get("http://localhost:8000/api/products");
     console.log(res.data.status);
     if (res.data.status === 200) {
+      res.data.products.map((item, index) => {
+        const storage = getStorage();
+        getDownloadURL(ref(storage, item.image01))
+        .then((url) => {
+          const img = document.getElementById(`img1${item.id}`);
+          img.setAttribute('src', url);
+          item.image01 = url;
+        })
+      .catch((error) => {
+        // Handle any errors
+      });
+      
+      });
       this.setState({
         products: res.data.products,
         loading: false,
@@ -45,6 +59,9 @@ class Products extends Component {
           <td>loading...</td>
           <td>loading...</td>
           <td>loading...</td>
+          <td>loading...</td>
+          <td>loading...</td>
+          <td>loading...</td>
         </tr>
       );
     } else {
@@ -53,6 +70,10 @@ class Products extends Component {
           <tr key={item.id}>
             <td>{item.id}</td>
             <td>{item.title}</td>
+            <td>{item.price}</td>
+            <td>{item.qty}</td>
+            <td>{item.status}</td>
+            <td><img id={`img1${item.id}`} style={{width: '90px', height:'70px'}} src={item.image01} alt="" /></td>
             <td>
               <a
                 className="btn btn-success btn-sm"
@@ -93,7 +114,10 @@ class Products extends Component {
                       <tr>
                         <th scope="col">#ID</th>
                         <th scope="col">Name</th>
-
+                        <th scope="col">price</th>
+                        <th scope="col">qty</th>
+                        <th scope="col">status</th>
+                        <th scope="col">Image</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>

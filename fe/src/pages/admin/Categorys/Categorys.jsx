@@ -56,7 +56,7 @@ class Categorys extends Component {
             <td>
               <a
                 className="btn btn-success btn-sm"
-                href={`edit-category/${item.id}`}
+                href={`editcategory/${item.id}`}
               >
                 Edit
               </a>

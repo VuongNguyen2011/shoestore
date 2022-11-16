@@ -108,7 +108,7 @@ function AddProduct() {
     formData.append("sizes", productInput.sizes);
     
     //console.log(pricture.image)
-     const imageRef = ref(storage, `images/Screenshot_20221026_032314.png08a864bc-56b8-4e71-87f5-c2244ed5b2dd`);
+     const imageRef = ref(storage, `images/${pricture.image.name + v4()}`);
     uploadBytes(imageRef, pricture.image).then(() => {
       getDownloadURL(ref(storage, imageRef.fullPath))
       .then((url) => {

@@ -57,7 +57,7 @@ class Colors extends Component {
             <td>
               <a
                 className="btn btn-success btn-sm"
-                href={`edit-color/${item.id}`}
+                href={`editcolor/${item.id}`}
               >
                 Edit
               </a>

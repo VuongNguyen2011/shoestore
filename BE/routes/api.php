@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/products',[ProductsController::class,'index']);
 Route::get('/edit-product/{id}',[ProductsController::class,'edit']);
 Route::delete('/delete-product/{id}',[ProductsController::class,'delete']);
-Route::put('/update-product/{id}',[ProductsController::class,'update']);
+Route::post('/update-product/{id}',[ProductsController::class,'update']);
 Route::post('/add-product',[ProductsController::class,'store']);
 //===========================================
 //               API COLORS

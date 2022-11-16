@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\ColorDetails;
+use App\Models\Colors;
 use App\Models\Product;
 use App\Models\SizeDetails;
 use Illuminate\Http\Request;
@@ -91,30 +92,88 @@ class ProductsController extends Controller
     }
     public function edit($id){
         $product = Product::find($id);
-
+        $colors = ColorDetails::where('idProduct',$id)->get();
+        $sizes = SizeDetails::where('idProduct',$id)->get();
         return response()->json([
             'status' => 200,
-            'products' => $product
+            'products' => $product,
+            'colors' => $colors,
+            'sizes' => $sizes,
         ]);
     }
     public function update(Request $request,$id){
-        $product = Product::find($id);
-        $product->name = $request->input('title');
-        $product->price = $request->input('price');
-        $product->price = $request->input('image01');
-        $product->price = $request->input('image02');
-        $product->price = $request->input('categorySlug');
-        $product->price = $request->input('slug');
-        $product->price = $request->input('description');
-        $product->update();
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Product updated successfully'
-        ]);
+        try {
+            $product = Product::find($id);
+            $product->title = $request->input('title');
+            $product->price = $request->input('price');
+            $product->image01 = $request->input('image01');
+            $product->image02 = $request->input('image02');
+            $product->categorySlug = $request->input('categorySlug');
+            $product->status = $request->input('status');
+            $product->qty = $request->input('qty');
+            $product->description = $request->input('description');
+            $product->update();
+            $colors = $request->input('colors');
+            $sizes = $request->input('sizes');
+            $mes ='vvv';
+
+            if(strpos($colors,',') !== false){
+                ColorDetails::where('idProduct',$id)->delete();
+                foreach (explode(',',$colors) as $value) {
+                $color = new ColorDetails;
+                $color->idColor = $value;
+                $color->idProduct = $id;
+                $color->save();
+                }
+            }else{
+                if($colors != ''){
+                    ColorDetails::where('idProduct',$id)->delete();
+                    $color = new ColorDetails;
+                    $color->idColor = $colors;
+                    $color->idProduct = $id;
+                    $color->save();
+                }
+            }
+
+
+
+            if(strpos($sizes,',') !== false){
+                SizeDetails::where('idProduct',$id)->delete();
+                foreach (explode(',',$sizes) as $value) {
+                    $size = new SizeDetails;
+                    $size->idSize = $value;
+                    $size->idProduct = $id;
+                    $size->save();
+                }
+            }else{
+                if($sizes != ''){
+                    SizeDetails::where('idProduct',$id)->delete();
+                    $size = new SizeDetails;
+                    $size->idSize = $sizes;
+                    $size->idProduct = $id;
+                    $size->save();
+                }
+            }
+
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Product Updated successfully'. $mes . " ID ". $id
+            ]);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => $th.'Product Updated Not successfully'. $mes . " ID ". $id
+                ]);
+            }
+
+
     }
     public function delete($id){
         $product = Product::find($id);
+        SizeDetails::where('idProduct',$id)->delete();
+        ColorDetails::where('idProduct',$id)->delete();
         $product->delete();
         return response()->json([
             'status' => 200,

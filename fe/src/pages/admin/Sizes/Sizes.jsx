@@ -57,7 +57,7 @@ class Sizes extends Component {
             <td>
               <a
                 className="btn btn-success btn-sm"
-                href={`edit-size/${item.id}`}
+                href={`editsize/${item.id}`}
               >
                 Edit
               </a>

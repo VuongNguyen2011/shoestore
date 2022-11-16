@@ -10,10 +10,12 @@ import "../../../assets/css/grid.css";
 import "../../../assets/css/index.css";
 import "../../../assets/css/theme.css";
 
-function EditProduct() {
+function EditProduct(props) {
   const [categorylist, setCategorylist] = useState([]);
   const [colorlist, setColorlist] = useState([]);
   const [sizelist, setSizelist] = useState([]);
+  const [colorlistSel, setColorlistSel] = useState([]);
+  const [sizelistSel, setSizelistSel] = useState([]);
 
   const [productInput, setProduct] = useState({
     title: "",
@@ -56,7 +58,16 @@ function EditProduct() {
 
   useEffect(() => {
     let isMounted = true;
+    const id = props.match.params.id;
+    axios.get(`http://localhost:8000/api/edit-product/${id}`).then((res) => {
+      if (res.data.status === 200) {
+        setProduct(res.data.products)
+        setColorlistSel(res.data.colors);
+        setSizelistSel(res.data.sizes);
+      }
+      console.log(productInput);
 
+    });
     axios.get(`http://localhost:8000/api/categorys`).then((res) => {
       if (res.data.status === 200) {
         setCategorylist(res.data.categorys);
@@ -108,7 +119,7 @@ function EditProduct() {
     formData.append("sizes", productInput.sizes);
     
     //console.log(pricture.image)
-     const imageRef = ref(storage, `images/Screenshot_20221026_032314.png08a864bc-56b8-4e71-87f5-c2244ed5b2dd`);
+     const imageRef = ref(storage, `images/${pricture.image.name + v4()}`);
     uploadBytes(imageRef, pricture.image).then(() => {
       getDownloadURL(ref(storage, imageRef.fullPath))
       .then((url) => {
@@ -131,54 +142,27 @@ function EditProduct() {
     formData.append("image01", imageRef.fullPath);
     formData.append("image02", imageRef1.fullPath);
 
-for (const value of formData.values()) {
+    for (const value of formData.values()) {
       console.log(value);
     }
 
-    // });
-    // await axios.post('http://localhost:8000/api/add-product',{
-    //     headers: { "Content-Type": "multipart/form-data" }
-    // }, formData).then(res => {
-    //     if (res.data.status === 200) {
-    //         //swal("Success",res.data.message,"success");
-    //         setProduct({
-    //             ...productInput,
-    //             title: '',
-    //             price: '',
-    //             qty: '',
-    //             description: '',
+    const id = props.match.params.id;
 
-    //             categorySlug: '',
-    //             image01: '',
-    //             image02: '',
-    //             status: '',
-    //         });
-    //         setError([]);
-    //     }
-    //     else{
-    //         //swal("All Fields are mandetory", "", "error");
-    //         //setError(res.data.errors);
-    //         console.log(res)
-    //     }
-    //     console.log(res.data.message);
-    // }).catch(e=>{
-    //     console.log(e);
-    // });
+    await axios.post(`http://localhost:8000/api/update-product/${id}`, formData,{
+      headers: { "Content-Type": "multipart/form-data" }
+  }).then(res => {
+        if (res.data.status === 200) {
+            
+        }
+        else{
+            
+            console.log(res)
+        }
+        console.log(res.data.message);
 
-    await axios({
-      method: "POST",
-      url: "http://localhost:8000/api/add-product",
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then(function (response) {
-        //handle success
-        console.log(response);
-      })
-      .catch(function (response) {
-        //handle error
-        console.log(response);
-      });
+    }).catch(e=>{
+        console.log(e);
+    });
   };
 
   return (
@@ -319,30 +303,66 @@ for (const value of formData.values()) {
                   <label>Select Sizes</label>
                   <div style={{ display: "flex", marginLeft: "15px" }}>
                     {sizelist.map((item) => {
-                      return (
-                        <div
-                          className="form-group"
-                          style={{ marginRight: "15px" }}
-                        >
-                          {/* <input type="checkbox" name="featured" onChange={handleInput} value={productInput.featured} style={{ marginRight: '10px' }} />
-                                                        <label>{item.name}</label> */}
-                          <input
-                            type="checkbox"
-                            name="sizes"
-                            class="btn-check btn-checkTest"
-                            id={item.id + item.name}
-                            autocomplete="off"
-                            value={item.id}
-                            {...register("sizes")}
-                          />
-                          <label
-                            class="btn btn-outline-primary"
-                            for={item.id + item.name}
+                      var check = 0;
+                      sizelistSel.map((item1)=>{
+                        if(item.id == item1.idSize){
+                          check = 1;
+                        }
+                        
+                      })
+                      if(check==0){
+                        return (
+                          <div
+                            className="form-group"
+                            style={{ marginRight: "15px" }}
                           >
-                            {item.name}
-                          </label>
-                        </div>
-                      );
+                            {/* <input type="checkbox" name="featured" onChange={handleInput} value={productInput.featured} style={{ marginRight: '10px' }} />
+                                                          <label>{item.name}</label> */}
+                            <input
+                              type="checkbox"
+                              name="sizes"
+                              class="btn-check btn-checkTest"
+                              id={item.id + item.name}
+                              autocomplete="off"
+                              value={item.id}
+                              {...register("sizes")}
+                            />
+                            <label
+                              class="btn btn-outline-primary"
+                              for={item.id + item.name}
+                            >
+                              {item.name}
+                            </label>
+                          </div>
+                        );
+                      }else{
+                        return (
+                          <div
+                            className="form-group"
+                            style={{ marginRight: "15px" }}
+                          >
+                            {/* <input type="checkbox" name="featured" onChange={handleInput} value={productInput.featured} style={{ marginRight: '10px' }} />
+                                                          <label>{item.name}</label> */}
+                            <input
+                              type="checkbox"
+                              name="sizes"
+                              class="btn-check btn-checkTest"
+                              id={item.id + item.name}
+                              checked = {check}
+                              autocomplete="off"
+                              value={item.id}
+                              {...register("sizes")}
+                            />
+                            <label
+                              class="btn btn-outline-primary"
+                              for={item.id + item.name}
+                            >
+                              {item.name}
+                            </label>
+                          </div>
+                        );
+                      }
+                      
                     })}
                   </div>
                 </div>
@@ -350,28 +370,62 @@ for (const value of formData.values()) {
                   <label>Select Color</label>
                   <div style={{ display: "flex", marginLeft: "15px" }}>
                     {colorlist.map((item) => {
-                      return (
-                        <div
-                          className="form-group"
-                          style={{ marginRight: "15px" }}
-                        >
-                          <input
-                            type="checkbox"
-                            name="colors"
-                            class="btn-check btn-checkTest"
-                            id={item.id + item.name}
-                            autocomplete="off"
-                            value={item.id}
-                            {...register("colors")}
-                          />
-                          <label
-                            class="btn btn-outline-primary"
-                            for={item.id + item.name}
+                      var check = 0;
+                      sizelistSel.map((item1)=>{
+                        if(item.id == item1.idSize){
+                          check = 1;
+                        }
+                        
+                      })
+                      if(check==0){
+                        return (
+                          <div
+                            className="form-group"
+                            style={{ marginRight: "15px" }}
                           >
-                            {item.name}
-                          </label>
-                        </div>
-                      );
+                            <input
+                              type="checkbox"
+                              name="colors"
+                              class="btn-check btn-checkTest"
+                              id={item.id + item.name}
+                              autocomplete="off"
+                              value={item.id}
+                              {...register("colors")}
+                            />
+                            <label
+                              class="btn btn-outline-primary"
+                              for={item.id + item.name}
+                            >
+                              {item.name}
+                            </label>
+                          </div>
+                        );
+                      }else{
+                        return (
+                          <div
+                            className="form-group"
+                            style={{ marginRight: "15px" }}
+                          >
+                            <input
+                              type="checkbox"
+                              name="colors"
+                              class="btn-check btn-checkTest"
+                              id={item.id + item.name}
+                              autocomplete="off"
+                              checked
+                              value={item.id}
+                              {...register("colors")}
+                            />
+                            <label
+                              class="btn btn-outline-primary"
+                              for={item.id + item.name}
+                            >
+                              {item.name}
+                            </label>
+                          </div>
+                        );
+                      }
+                      
                     })}
                   </div>
                 </div>
