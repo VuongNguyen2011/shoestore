@@ -31,8 +31,10 @@ const Product = (props) => {
   const [descriptionExpand, setDescriptionExpand] = useState(false);
 
   const [color, setColor] = useState(undefined);
+  const [colorID, setColorID] = useState(undefined);
 
   const [size, setSize] = useState(undefined);
+  const [sizeID, setSizeID] = useState(undefined);
 
   const [quantity, setQuantity] = useState(1);
   const goToCart = () => {
@@ -60,7 +62,9 @@ const Product = (props) => {
         img01: previewImg1,
         name: productInput.title,
         color: color,
+        colorID: colorID,
         size: size,
+        sizeID: sizeID,
         price: productInput.price,
         quantity: quantity,
       };
@@ -206,7 +210,7 @@ const Product = (props) => {
                       key={index}
                       className={`product__info__item__list__item ${color === item.name ? "active" : ""
                         }`}
-                      onClick={() => setColor(item.name)}
+                      onClick={() => {setColor(item.name); setColorID(item.id)}}
                     >
                       <div className={`circle bg-${item.name}`}></div>
                     </div>
@@ -221,7 +225,7 @@ const Product = (props) => {
                       key={index}
                       className={`product__info__item__list__item ${size === item.name ? "active" : ""
                         }`}
-                      onClick={() => setSize(item.name)}
+                      onClick={() => {setSize(item.name); setSizeID(item.id)}}
                     >
                       <span className="product__info__item__list__item__size">
                         {item.name}
