@@ -12,17 +12,16 @@ import numberWithCommas from "../utils/numberWithCommas";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cartItems.value);
-
-  const [cartProducts, setCartProducts] = useState(
-    productData.getCartItemsInfo(cartItems)
-  );
+  // const [cartProducts, setCartProducts] = useState(
+  //   productData.getCartItemsInfo(cartItems)
+  // );
 
   const [totalProducts, setTotalProducts] = useState(0);
 
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    setCartProducts(productData.getCartItemsInfo(cartItems));
+    //setCartProducts(productData.getCartItemsInfo(cartItems));
     setTotalPrice(
       cartItems.reduce(
         (total, item) => total + Number(item.quantity) * Number(item.price),
@@ -46,14 +45,14 @@ const Cart = () => {
             </div>
           </div>
           <div className="cart__info__btn">
-            <Button size="block">Đặt hàng</Button>
+            <Button color='btn-danger' size="block">Đặt hàng</Button>
             <Link to="/catalog">
-              <Button size="block">Tiếp tục mua hàng</Button>
+              <Button color = 'btn-light' size="block">Tiếp tục mua hàng</Button>
             </Link>
           </div>
         </div>
         <div className="cart__list">
-          {cartProducts.map((item, index) => (
+          {cartItems.map((item, index) => (
             <CartItem item={item} key={index} />
           ))}
         </div>

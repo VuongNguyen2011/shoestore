@@ -30,6 +30,7 @@ Route::post('/add-product',[ProductsController::class,'store']);
 // ==========================================
 Route::get('/colors',[ColorsController::class,'index']);
 Route::get('/edit-color/{id}',[ColorsController::class,'edit']);
+Route::get('/get-color/{id}',[ColorsController::class,'getByIDPro']);
 Route::delete('/delete-color/{id}',[ColorsController::class,'delete']);
 Route::put('/update-color/{id}',[ColorsController::class,'update']);
 Route::post('/add-color',[ColorsController::class,'add']);

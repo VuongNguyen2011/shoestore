@@ -13,6 +13,7 @@ const CartItem = (props) => {
   const itemRef = useRef(null);
 
   const [item, setItem] = useState(props.item);
+  console.log(item)
   const [quantity, setQuantity] = useState(props.item.quantity);
 
   useEffect(() => {
@@ -43,12 +44,12 @@ const CartItem = (props) => {
   return (
     <div className="cart__item" ref={itemRef}>
       <div className="cart__item__image">
-        <img src={item.product.image01} alt="" />
+        <img src={item.img01} alt="" />
       </div>
       <div className="cart__item__info">
         <div className="cart__item__info__name">
-          <Link to={`/catalog/${item.slug}`}>
-            {`${item.product.title} - ${item.color} - ${item.size}`}
+          <Link to={`/catalog/${item.id}`}>
+            {`${item.name} - ${item.color} - ${item.size}`}
           </Link>
         </div>
         <div className="cart__item__info__price">

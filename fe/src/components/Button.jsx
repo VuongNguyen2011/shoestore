@@ -7,10 +7,10 @@ const Button = (props) => {
   const size = props.size ? "btn-" + props.size : "";
 
   const animate = props.animate ? "btn-animate" : "";
-
+  const color = props.color ? props.color : "";
   return (
     <button
-      className={`btn ${bg} ${size} ${animate}`}
+      className={`btn ${bg} ${size} ${animate} ${color} ` }
       onClick={props.onClick ? () => props.onClick() : null}
     >
       <span className="btn__txt">{props.children}</span>

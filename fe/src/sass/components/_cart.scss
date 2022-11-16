@@ -7,7 +7,7 @@
 
     &__list {
         width: 60%;
-
+        margin: 30px;
         @include mobile {
             width: 100%;
         }
@@ -67,6 +67,7 @@
 
             img {
                 height: 150px;
+                width: 150px;
             }
         }
 
@@ -99,7 +100,7 @@
 
         &__del {
             font-size: 1.5rem;
-
+            color: red;
             i {
                 cursor: pointer;
 

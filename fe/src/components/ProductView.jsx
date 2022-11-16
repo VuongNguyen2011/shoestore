@@ -10,26 +10,56 @@ import { remove } from "../redux/product-modal/productModalSlice";
 
 import Button from "./Button";
 import numberWithCommas from "../utils/numberWithCommas";
+import axios from "axios";
 
 const ProductView = (props) => {
   const dispatch = useDispatch();
-
+  const [colorlist, setColorlist] = useState([]);
+  const [sizelist, setSizelist] = useState([]);
   let product = props.product;
 
+  useEffect(()  => {
+  let colors = props.colors;
+  let sizes = props.sizes;
+  console.log(colors);
+  console.log(sizes);
+  //   axios.get(`http://localhost:8000/api/sizes`).then((res) => {
+  //     if (res.data.status === 200) {
+  //       setSizelist(res.data.sizes);
+  //     }
+  //     //console.log(res.data.sizes);
+  //   });
+  //   axios.get(`http://localhost:8000/api/colors`).then((res) => {
+  //     if (res.data.status === 200) {
+  //       setColorlist(res.data.colors);
+  //     }
+  //     //console.log(res.data.colors);
+  //   });
+  },[]);
   if (product === undefined)
     product = {
       title: "",
-      price: "",
-      image01: null,
-      image02: null,
-      categorySlug: "",
-      colors: [],
-      slug: "",
-      size: [],
-      description: "",
-    };
+    price: "",
+    qty: "",
+    description: "",
 
-  const [previewImg, setPreviewImg] = useState(product.image01);
+    categorySlug: "",
+    image01: "",
+    image02: "",
+    status: "",
+    colors: [],
+    sizes: [],
+    };
+    // if (colors === undefined)
+    // colors = {
+    //   colorss: []
+    // }
+    // if (sizes === undefined)
+    // sizes = {
+    //   sizess: []
+    // }
+
+      const [previewImg, setPreviewImg] = useState(product.image01);
 
   const [descriptionExpand, setDescriptionExpand] = useState(false);
 
@@ -48,10 +78,11 @@ const ProductView = (props) => {
   };
 
   useEffect(() => {
-    setPreviewImg(product.image01);
-    setQuantity(1);
-    setColor(undefined);
-    setSize(undefined);
+    setQuantity(1)
+    setColor(undefined)
+    setSize(undefined)
+    setPreviewImg(product.image01)
+    //console.log(product)
   }, [product]);
 
   const check = () => {
@@ -151,7 +182,7 @@ const ProductView = (props) => {
         <div className="product__info__item">
           <div className="product__info__item__title">Màu sắc</div>
           <div className="product__info__item__list">
-            {product.colors.map((item, index) => (
+            {colorlist.map((item, index) => (
               <div
                 key={index}
                 className={`product__info__item__list__item ${
@@ -167,7 +198,7 @@ const ProductView = (props) => {
         <div className="product__info__item">
           <div className="product__info__item__title">Kích cỡ</div>
           <div className="product__info__item__list">
-            {product.size.map((item, index) => (
+            {sizelist.map((item, index) => (
               <div
                 key={index}
                 className={`product__info__item__list__item ${

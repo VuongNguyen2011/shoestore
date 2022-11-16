@@ -119,28 +119,39 @@ function EditProduct(props) {
     formData.append("sizes", productInput.sizes);
     
     //console.log(pricture.image)
-     const imageRef = ref(storage, `images/${pricture.image.name + v4()}`);
-    uploadBytes(imageRef, pricture.image).then(() => {
-      getDownloadURL(ref(storage, imageRef.fullPath))
-      .then((url) => {
-        console.log(url);
-      })
-      .catch((error) => {
-        // Handle any errors
+    if(pricture != null){
+      const imageRef = ref(storage, `images/${pricture.image.name + v4()}`);
+      uploadBytes(imageRef, pricture.image).then(() => {
+        getDownloadURL(ref(storage, imageRef.fullPath))
+        .then((url) => {
+          console.log(url);
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
       });
-    });
-    const imageRef1 = ref(storage, `images/${pricture1.image.name + v4()}`);
-    uploadBytes(imageRef1, pricture1.image).then(() => {
-      getDownloadURL(ref(storage, imageRef1.fullPath))
-      .then((url) => {
-        console.log(url);
-      })
-      .catch((error) => {
-        // Handle any errors
+      formData.append("image01", imageRef.fullPath);
+    }else{
+      formData.append("image01", '1');
+    }
+    if(pricture1 != null){
+      const imageRef1 = ref(storage, `images/${pricture1.image.name + v4()}`);
+      uploadBytes(imageRef1, pricture1.image).then(() => {
+        getDownloadURL(ref(storage, imageRef1.fullPath))
+        .then((url) => {
+          console.log(url);
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
       });
-    });
-    formData.append("image01", imageRef.fullPath);
-    formData.append("image02", imageRef1.fullPath);
+      
+      formData.append("image02", imageRef1.fullPath);
+    }else{
+      formData.append("image02", '1');
+
+    }
+    
 
     for (const value of formData.values()) {
       console.log(value);
@@ -150,7 +161,7 @@ function EditProduct(props) {
 
     await axios.post(`http://localhost:8000/api/update-product/${id}`, formData,{
       headers: { "Content-Type": "multipart/form-data" }
-  }).then(res => {
+    }).then(res => {
         if (res.data.status === 200) {
             
         }
@@ -305,7 +316,7 @@ function EditProduct(props) {
                     {sizelist.map((item) => {
                       var check = 0;
                       sizelistSel.map((item1)=>{
-                        if(item.id == item1.idSize){
+                        if(item.id == item1.id){
                           check = 1;
                         }
                         
@@ -372,7 +383,7 @@ function EditProduct(props) {
                     {colorlist.map((item) => {
                       var check = 0;
                       sizelistSel.map((item1)=>{
-                        if(item.id == item1.idSize){
+                        if(item.id == item1.id){
                           check = 1;
                         }
                         

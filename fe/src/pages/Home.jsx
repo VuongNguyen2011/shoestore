@@ -27,7 +27,7 @@ class Home extends Component {
         const storage = getStorage();
         getDownloadURL(ref(storage, item.image01))
         .then((url) => {
-          const img = document.getElementById('img1');
+          const img = document.getElementById(`img1${item.id}`);
           img.setAttribute('src', url);
         })
       .catch((error) => {
@@ -35,7 +35,7 @@ class Home extends Component {
       });
       getDownloadURL(ref(storage, item.image02))
         .then((url) => {
-          const img = document.getElementById('img2');
+          const img = document.getElementById(`img2${item.id}`);
           img.setAttribute('src', url);
         })
       .catch((error) => {
@@ -109,7 +109,7 @@ class Home extends Component {
                   img02={item.image02}
                   name={item.title}
                   price={Number(item.price)}
-                  slug={item.slug}
+                  categorySlug={item.categorySlug}
                   list={this.state.products}
                 />
               ))}

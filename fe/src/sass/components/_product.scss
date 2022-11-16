@@ -9,6 +9,7 @@
         @include flex(flex-start, flex-start);
         width: 60%;
         flex-wrap: wrap;
+        margin-right: 25px;
 
         @include tablet {
             width: 80%;

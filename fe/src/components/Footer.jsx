@@ -97,7 +97,7 @@ const Footer = () => {
         </Grid>
         <div style={{ marginTop: "50px" }}>
           Copyright ©2022 CNP STORE. Công ty TNHH CNP. Địa chỉ: 273 An D. Vương,
-          Phường 3, Quận 5, Thành phố Hồ Chí Minh.| Cung cấp bởi Phu
+          Phường 3, Quận 5, Thành phố Hồ Chí Minh.| Cung cấp bởi CNP STORE
         </div>
       </div>
     </footer>

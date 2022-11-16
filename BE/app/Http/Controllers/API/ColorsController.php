@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\ColorDetails;
 use App\Models\Colors;
+use App\Models\SizeDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ColorsController extends Controller
 {
@@ -33,6 +36,17 @@ class ColorsController extends Controller
         return response()->json([
             'status' => 200,
             'colors' => $color
+        ]);
+    }
+    public function getByIDPro($id){
+        $colors  = DB::table('colors')
+            ->select('colors.id', 'colors.name')
+            ->join('colordetails', 'colordetails.idColor', '=', 'colors.id')
+            ->where('colordetails.idProduct', $id)
+            ->get();
+        return response()->json([
+            'status' => 200,
+            'colors' => $colors,
         ]);
     }
     public function update(Request $request,$id){

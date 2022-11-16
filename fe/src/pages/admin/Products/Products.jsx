@@ -65,10 +65,10 @@ class Products extends Component {
         </tr>
       );
     } else {
-      HTMLTable = this.state.products.map((item) => {
+      HTMLTable = this.state.products.map((item,index) => {
         return (
           <tr key={item.id}>
-            <td>{item.id}</td>
+            <td>{index+1}</td>
             <td>{item.title}</td>
             <td>{item.price}</td>
             <td>{item.qty}</td>

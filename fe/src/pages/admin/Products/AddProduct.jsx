@@ -177,7 +177,7 @@ for (const value of formData.values()) {
       })
       .catch(function (response) {
         //handle error
-        console.log(response);
+        console.log(response.data);
       });
   };
 
