@@ -17,6 +17,7 @@ class CreateOdersTable extends Migration
             $table->id();
             $table->string('memberID');
             $table->string('cost');
+            $table->string('status');
 
             $table->timestamps();
         });

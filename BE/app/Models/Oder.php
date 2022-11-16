@@ -12,5 +12,6 @@ class Oder extends Model
     protected $filtable = [
         'memberID',
         'cost',
+        'status'
     ];
 }
