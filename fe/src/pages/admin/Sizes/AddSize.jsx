@@ -41,7 +41,7 @@ class AddSize extends Component {
             <div className="card">
               <div>
                 <h4>Add Size</h4>
-                <a className="btn btn-primary" href="/sizes">
+                <a className="btn btn-primary" href="/admin/sizes">
                   Back
                 </a>
               </div>

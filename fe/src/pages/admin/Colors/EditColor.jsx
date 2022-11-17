@@ -47,7 +47,7 @@ class EditColor extends Component {
             <div className="card">
               <div>
                 <h4>Update Color</h4>
-                <a className="btn btn-primary" href="/colors">
+                <a className="btn btn-primary" href="/admin/colors">
                   Back
                 </a>
               </div>
