@@ -16,6 +16,8 @@ import EditProduct from "../pages/admin/Products/EditProduct";
 import Sizes from "../pages/admin/Sizes/Sizes";
 import AddSize from "../pages/admin/Sizes/AddSize";
 import EditSize from "../pages/admin/Sizes/EditSize";
+import Orders from "../pages/admin/Orders/Orders";
+import OrderDetail from "../pages/admin/Orders/OrderDetail";
 
 const RoutesAdmin = () => {
   return (
@@ -35,6 +37,8 @@ const RoutesAdmin = () => {
       <Route path="/admin/products" component={Products} />
       <Route path="/admin/addproduct" component={AddProduct} />
       <Route path="/admin/editproduct/:id" component={EditProduct} />
+      <Route path="/admin/orders" component={Orders} />
+      <Route path="/admin/orderdetail" component={OrderDetail} />
     </Switch>
   );
 };
