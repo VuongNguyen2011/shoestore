@@ -24,6 +24,15 @@ const mainNav = [
     display: "Liên hệ",
     path: "/contact",
   },
+  {
+    display: "Đăng nhập",
+    path: "/login",
+  },
+  {
+    display: "Đăng ký",
+    path: "/register",
+  },
+
 ];
 
 const Header = () => {
@@ -56,9 +65,9 @@ const Header = () => {
     <div className="header" ref={headerRef}>
       <div className="container">
         <div className="header__logo">
-          <Link to="/">
+          {/* <Link to="/">
             <img src={logo} alt="" />
-          </Link>
+          </Link> */}
         </div>
         <div className="header__menu">
           <div className="header__menu__mobile-toggle" onClick={menuToggle}>
