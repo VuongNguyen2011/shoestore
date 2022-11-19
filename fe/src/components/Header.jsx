@@ -24,6 +24,14 @@ const mainNav = [
     display: "Liên hệ",
     path: "/contact",
   },
+  {
+    display: "Đăng nhập",
+    path: "/login",
+  },
+  {
+    display: "Đăng ký",
+    path: "/register",
+  },
 ];
 
 const Header = () => {
