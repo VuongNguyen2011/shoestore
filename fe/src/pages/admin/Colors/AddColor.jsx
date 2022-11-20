@@ -4,6 +4,7 @@ import axios from "axios";
 import "../../../assets/css/grid.css";
 import "../../../assets/css/index.css";
 import "../../../assets/css/theme.css";
+import swal from "sweetalert";
 
 class AddColor extends Component {
   state = {
@@ -23,6 +24,7 @@ class AddColor extends Component {
       this.state
     );
     if (res.data.status === 200) {
+      swal("Success","Thêm thành công","success");
       console.log(res.data.message);
       this.setState({
         name: "",

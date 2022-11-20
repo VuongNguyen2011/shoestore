@@ -163,7 +163,21 @@ function EditProduct(props) {
       headers: { "Content-Type": "multipart/form-data" }
     }).then(res => {
         if (res.data.status === 200) {
-            
+          swal("Success","Sửa thành công","success");
+          setProduct({
+            ...productInput,
+            title: "",
+            price: "",
+            qty: "",
+            description: "",
+  
+            categorySlug: "",
+            image01: "",
+            image02: "",
+            status: "",
+            colors: [],
+            sizes: [],
+          });
         }
         else{
             
@@ -172,6 +186,8 @@ function EditProduct(props) {
         console.log(res.data.message);
 
     }).catch(e=>{
+      swal("Error","Sửa không thành công","error");
+
         console.log(e);
     });
   };

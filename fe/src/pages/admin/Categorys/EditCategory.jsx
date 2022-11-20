@@ -4,6 +4,7 @@ import axios from "axios";
 import "../../../assets/css/grid.css";
 import "../../../assets/css/index.css";
 import "../../../assets/css/theme.css";
+import swal from "sweetalert";
 
 class EditCategory extends Component {
   state = {
@@ -34,6 +35,7 @@ class EditCategory extends Component {
       this.state
     );
     if (res.data.status === 200) {
+      swal("Success","Sửa thành công","success");
       console.log(res.data.message);
       this.setState({
         name: "",

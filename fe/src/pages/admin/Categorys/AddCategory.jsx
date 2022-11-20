@@ -4,6 +4,7 @@ import axios from "axios";
 import "../../../assets/css/grid.css";
 import "../../../assets/css/index.css";
 import "../../../assets/css/theme.css";
+import swal from "sweetalert";
 
 class AddCategory extends Component {
   state = {
@@ -25,6 +26,7 @@ class AddCategory extends Component {
       formData
     );
     if (res.data.status === 200) {
+      swal("Success","Thêm thành công","success");
       console.log(res.data.message);
       this.setState({
         name: "",

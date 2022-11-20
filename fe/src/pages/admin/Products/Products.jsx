@@ -5,6 +5,7 @@ import "../../../assets/css/grid.css";
 import "../../../assets/css/index.css";
 import "../../../assets/css/theme.css";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import swal from "sweetalert";
 
 class Products extends Component {
   state = {
@@ -40,6 +41,8 @@ class Products extends Component {
       `http://localhost:8000/api/delete-product/${id}`
     );
     if (res.data.status === 200) {
+      swal("Success","Xóa thành công","success");
+
       thidClicked.closest("tr").remove();
       console.log(res.data.message);
     }

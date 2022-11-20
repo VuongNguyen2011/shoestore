@@ -4,6 +4,7 @@ import axios from "axios";
 import "../../../assets/css/grid.css";
 import "../../../assets/css/index.css";
 import "../../../assets/css/theme.css";
+import swal from "sweetalert";
 
 class Sizes extends Component {
   state = {
@@ -27,6 +28,7 @@ class Sizes extends Component {
       `http://localhost:8000/api/delete-size/${id}`
     );
     if (res.data.status === 200) {
+      swal("Success","Xóa thành công","success");
       thidClicked.closest("tr").remove();
       console.log(res.data.message);
     }

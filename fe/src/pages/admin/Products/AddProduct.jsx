@@ -106,32 +106,32 @@ function AddProduct() {
     formData.append("status", productInput.status);
     formData.append("colors", productInput.colors);
     formData.append("sizes", productInput.sizes);
-    
+
     //console.log(pricture.image)
-     const imageRef = ref(storage, `images/${pricture.image.name + v4()}`);
+    const imageRef = ref(storage, `images/${pricture.image.name + v4()}`);
     uploadBytes(imageRef, pricture.image).then(() => {
       getDownloadURL(ref(storage, imageRef.fullPath))
-      .then((url) => {
-        console.log(url);
-      })
-      .catch((error) => {
-        // Handle any errors
-      });
+        .then((url) => {
+          console.log(url);
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
     });
     const imageRef1 = ref(storage, `images/${pricture1.image.name + v4()}`);
     uploadBytes(imageRef1, pricture1.image).then(() => {
       getDownloadURL(ref(storage, imageRef1.fullPath))
-      .then((url) => {
-        console.log(url);
-      })
-      .catch((error) => {
-        // Handle any errors
-      });
+        .then((url) => {
+          console.log(url);
+        })
+        .catch((error) => {
+          // Handle any errors
+        });
     });
     formData.append("image01", imageRef.fullPath);
     formData.append("image02", imageRef1.fullPath);
 
-for (const value of formData.values()) {
+    for (const value of formData.values()) {
       console.log(value);
     }
 
@@ -172,11 +172,25 @@ for (const value of formData.values()) {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then(function (response) {
-        //handle success
+        swal("Success", "Thêm thành công", "success");
         console.log(response);
+        setProduct({
+          ...productInput,
+          title: "",
+          price: "",
+          qty: "",
+          description: "",
+
+          categorySlug: "",
+          image01: "",
+          image02: "",
+          status: "",
+          colors: [],
+          sizes: [],
+        });
       })
       .catch(function (response) {
-        //handle error
+        swal("Error", "Thêm không thành công", "error");
         console.log(response.data);
       });
   };
