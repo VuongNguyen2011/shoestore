@@ -38,7 +38,7 @@ class AddColor extends Component {
             <div className="card">
               <div>
                 <h4>Add Colors</h4>
-                <a className="btn btn-primary" href="/colors">
+                <a className="btn btn-primary" href="/admin/colors">
                   Back
                 </a>
               </div>

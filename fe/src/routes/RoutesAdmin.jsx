@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 import Customers from "../pages/admin/Customers";
 import Dashboard from "../pages/admin/Dashboard";
@@ -16,6 +16,9 @@ import EditProduct from "../pages/admin/Products/EditProduct";
 import Sizes from "../pages/admin/Sizes/Sizes";
 import AddSize from "../pages/admin/Sizes/AddSize";
 import EditSize from "../pages/admin/Sizes/EditSize";
+import Orders from "../pages/admin/Orders/Orders";
+import OrderDetail from "../pages/admin/Orders/OrderDetail";
+import Login from "../pages/admin/Login";
 
 const RoutesAdmin = () => {
   return (
@@ -35,6 +38,11 @@ const RoutesAdmin = () => {
       <Route path="/admin/products" component={Products} />
       <Route path="/admin/addproduct" component={AddProduct} />
       <Route path="/admin/editproduct/:id" component={EditProduct} />
+      <Route path="/admin/orders" component={Orders} />
+      <Route path="/admin/orderdetail" component={OrderDetail} />
+      <Route path="/admin/login" component={Login} />
+
+      
     </Switch>
   );
 };

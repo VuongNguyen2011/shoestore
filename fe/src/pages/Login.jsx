@@ -1,56 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
-import AuthUser from "./AuthUser";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Login = () => {
-  const { http } = AuthUser();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
 
-  const submitForm = () => {
-    // api call
-    http.post("/login", { email: email, password: password }).then((res) => {
-      console.log(res.data);
-    });
-  };
-
-  return (
-    <div className="row justify-content-center pt-5">
-      <div className="col-sm-3">
-        <div className="card p-4">
-          <div className="form-group">
-            <input
-              type="email"
-              className="form-control"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-              id="email"
-            />
-          </div>
-          <div className="form-group mt-3">
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Mật khẩu"
-              onChange={(e) => setPassword(e.target.value)}
-              id="pwd"
-            />
-          </div>
-
-          <button
-            type="button"
-            onClick={submitForm}
-            className="btn btn-primary mt-4"
-          >
-            Đăng nhập
-          </button>
+export default function SignInPage() {
+    return (
+        <div className="text-center m-5-auto">
+            <form action="/home">
+            <h2>Sign in to us</h2>
+                <p>
+                    <label>Email</label><br/>
+                    <input type="text" name="first_name" required />
+                </p>
+                <p>
+                    <label>Password</label>
+                    <br/>
+                    <input type="password" name="password" required />
+                </p>
+                <p>
+                    <button id="sub_btn" type="submit">Login</button>
+                </p>
+                <p>First time? <Link to="/register">Create an account</Link>.</p>
+                <p><Link to="/">Back to Homepage</Link>.</p>
+            </form>
         </div>
-      </div>
-    </div>
-  );
-};
-
-export default Login;
+    )
+}

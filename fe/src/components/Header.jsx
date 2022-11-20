@@ -23,16 +23,7 @@ const mainNav = [
   {
     display: "Liên hệ",
     path: "/contact",
-  },
-  {
-    display: "Đăng nhập",
-    path: "/login",
-  },
-  {
-    display: "Đăng ký",
-    path: "/register",
-  },
-
+  }
 ];
 
 const Header = () => {
@@ -65,9 +56,9 @@ const Header = () => {
     <div className="header" ref={headerRef}>
       <div className="container">
         <div className="header__logo">
-          {/* <Link to="/">
+          <Link to="/">
             <img src={logo} alt="" />
-          </Link> */}
+          </Link>
         </div>
         <div className="header__menu">
           <div className="header__menu__mobile-toggle" onClick={menuToggle}>
@@ -103,6 +94,18 @@ const Header = () => {
             <div className="header__menu__item header__menu__right__item">
               <i className="bx bx-user"></i>
             </div>
+
+            <div className=" header__menu__item header__menu__right__item" id="size-small-checkin">
+              <Link to="/login">
+                Đăng nhập
+              </Link>
+            </div>
+            
+            <div className=" header__menu__item header__menu__right__item" id="size-small-checkin">
+            <Link to="/register">
+                Đăng ký
+              </Link>
+              </div>
           </div>
         </div>
       </div>

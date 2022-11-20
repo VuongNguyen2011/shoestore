@@ -40,7 +40,7 @@ class AddCategory extends Component {
             <div className="card">
               <div>
                 <h4>Add Category</h4>
-                <a className="btn btn-primary" href="/Categorys">
+                <a className="btn btn-primary" href="/admin/categories">
                   Back
                 </a>
               </div>
