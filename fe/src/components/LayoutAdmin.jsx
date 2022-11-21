@@ -27,6 +27,7 @@ import EditProduct from "../pages/admin/Products/EditProduct";
 import Sizes from "../pages/admin/Sizes/Sizes";
 import AddSize from "../pages/admin/Sizes/AddSize";
 import EditSize from "../pages/admin/Sizes/EditSize";
+import StatisticalReport from "../pages/admin/StatisticalReport/StatisticalReport";
 
 const LayoutAdmin = () => {
   // const themeReducer = useSelector(state => state.ThemeReducer)

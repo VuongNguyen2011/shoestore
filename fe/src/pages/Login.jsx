@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Dashboard from "../pages/admin/Dashboard";
+
 
 export default function SignInPage() {
   return (
     <div className="text-center m-5-auto">
       <h2>Sign in to us</h2>
-      <form action="/home">
+      {/* <form action="/home"> */}
         <p>
           <label>Email</label>
           <br />
@@ -17,11 +19,11 @@ export default function SignInPage() {
           <input type="password" name="password" required />
         </p>
         <p>
-          <button id="sub_btn" type="submit">
+          <button id="sub_btn" type="submit" onClick={Dashboard}>
             Login
           </button>
         </p>
-      </form>
+      {/* </form> */}
       <footer>
         <p>
           First time? <Link to="/register">Create an account</Link>.

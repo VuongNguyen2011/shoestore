@@ -18,7 +18,8 @@ import AddSize from "../pages/admin/Sizes/AddSize";
 import EditSize from "../pages/admin/Sizes/EditSize";
 import Orders from "../pages/admin/Orders/Orders";
 import OrderDetail from "../pages/admin/Orders/OrderDetail";
-import LoginAdmin from "../pages/admin/LoginAdmin";
+import Login from "../pages/admin/Login";
+import StatisticalReport from "../pages/admin/StatisticalReport/StatisticalReport";
 
 const RoutesAdmin = () => {
   return (
@@ -40,7 +41,8 @@ const RoutesAdmin = () => {
       <Route path="/admin/editproduct/:id" component={EditProduct} />
       <Route path="/admin/orders" component={Orders} />
       <Route path="/admin/orderdetail" component={OrderDetail} />
-      <Route path="/admin/login" component={LoginAdmin} />
+      <Route path="/admin/statistical" component={StatisticalReport} />
+      <Route path="/admin/login" component={Login} />
     </Switch>
   );
 };
