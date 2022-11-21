@@ -23,15 +23,7 @@ const mainNav = [
   {
     display: "Liên hệ",
     path: "/contact",
-  },
-  {
-    display: "Đăng nhập",
-    path: "/login",
-  },
-  {
-    display: "Đăng ký",
-    path: "/register",
-  },
+  }
 ];
 
 const Header = () => {
@@ -102,6 +94,19 @@ const Header = () => {
             <div className="header__menu__item header__menu__right__item">
               <i className="bx bx-user"></i>
             </div>
+
+            <div className=" header__menu__item header__menu__right__item" id="size-small-checkin">
+              <Link to="/login">
+                Đăng nhập /
+              </Link>
+            </div>
+            
+            <div className=" header__menu__item header__menu__right__item" id="size-small-checkin">
+            <Link to="/register">
+                Đăng ký
+              </Link>
+              </div>
+              
           </div>
         </div>
       </div>
