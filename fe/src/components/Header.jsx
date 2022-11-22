@@ -96,13 +96,13 @@ const Header = () => {
             </div>
 
             <div className=" header__menu__item header__menu__right__item" id="size-small-checkin">
-              <Link to="/login">
+              <Link to="/login" style={{fontSize: '20px'}}>
                 Đăng nhập /
               </Link>
             </div>
             
             <div className=" header__menu__item header__menu__right__item" id="size-small-checkin">
-            <Link to="/register">
+            <Link to="/register" style={{fontSize: '20px'}}>
                 Đăng ký
               </Link>
               </div>

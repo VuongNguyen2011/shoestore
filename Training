@@ -12,6 +12,7 @@ cd fe
 npm install 
 npm install axios
 npm install react-date-picker
+npm install firebase
 // BackEnd
 cd BE
 composer install

@@ -13,7 +13,7 @@ class CreateTableOder extends Migration
      */
     public function up()
     {
-        Schema::create('table_oder', function (Blueprint $table) {
+        Schema::create('oder', function (Blueprint $table) {
             $table->id();
             $table->string('memberID');
             $table->string('memberName');

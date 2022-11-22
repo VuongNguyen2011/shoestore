@@ -23,19 +23,19 @@ const Cart = () => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [checkInput,setCheckInput] = useState({
-    memberID : '',
-    memberName: '',
-    phone:'',
-    cost:'',
-    status:'',
-    address:'',
-    cart: []
+    memberID : member.id,
+    memberName: member.name,
+    phone: member.phone,
+    cost: totalPrice,
+    status:'0',
+    address:member.address,
+    cart: cartItems
   })
 
   useEffect(() => {
     //setCartProducts(productData.getCartItemsInfo(cartItems));
     setTotalPrice(
-      cartItems.reduce(
+      cartItems.reduce( 
         (total, item) => total + Number(item.quantity) * Number(item.price),
         0
       )
@@ -49,16 +49,16 @@ const Cart = () => {
     const data = {
       member: member,
       cart : cartItems,
-      id: 'id'
+      id:"nguyen"
     }
-    
+    const test = JSON.stringify(data);
     const formData = new FormData();
     formData.append("carts",cartItems);
     formData.append("user",member);
     await axios({
       method: "POST",
       url: "http://localhost:8000/api/add-oder",
-      data: data,
+      data: checkInput,
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then(function (response) {

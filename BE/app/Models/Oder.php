@@ -8,13 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Oder extends Model
 {
     use HasFactory;
-    protected $table ="oders";
-    protected $filtable = [
+    protected $table ="oder";
+    protected $filtable = [ 
         'memberID',
         'memberName',
         'phone',
         'cost',
         'status',
         'address'
-    ];
+    ];  
+
+    public function oderDetails(){
+        return $this->hasMany(OderDetails::class, 'oder_id','id' );
+    }
 }
