@@ -7,6 +7,7 @@ use App\Models\Oder;
 use App\Models\OderDetails;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OderController extends Controller
 {
@@ -28,23 +29,41 @@ class OderController extends Controller
 
         $carts = $request->input('cart');
         $cost = 0;
-        
+
+        $t ='';
+        $pro = new Product();
+
+        foreach ($carts as $key => $value) {
+            $cost += $carts[$key]['price']*(int)$carts[$key]['quantity'];
+            $pro = Product::find($carts[$key]['id']);
+            $pro->qty = $pro->qty - (int)$carts[$key]['quantity'];
+            $t .= (int)$pro->qty ;
+            $pro->update();
+        }
+        $oder->cost = $cost;
+
+        $oder->save();
+        $id = DB::table('oder')
+                ->latest()
+                ->first();
+
         foreach ($carts as $key => $value) {
             $cost += $carts[$key]['price'];
-            // $pro = Product::where('id',$carts[$key]['id'])->get();
-            // $pro->qty = $pro->qty - $carts[$key]['quantity'];
-            // $pro->update();
+            $oderDetai = new OderDetails;
+            $oderDetai->productID = $carts[$key]['id'];
+            $oderDetai->oderID = $id->id;
+            $oderDetai->name = $carts[$key]['name'];
+            $oderDetai->price = $carts[$key]['price'];
+            $oderDetai->qty = $carts[$key]['quantity'];
+            $oderDetai->colorID = $carts[$key]['colorID'];
+            $oderDetai->sizeID = $carts[$key]['sizeID'];
+            $oderDetai->total = $carts[$key]['price'] * $carts[$key]['quantity'];
+            $oderDetai->save();
         }
-
-        $oder->cost = $cost;
-        $oder->save();  
-
-        $oder->oderDetails()->createMany($carts);
-        // $oder->save();
 
         return response()->json([
             'status' => 200,
-            'message' => $oder
+            'message' => $oderDetai
         ]);
     }
     public function oderdetails(Request $request, $id) {

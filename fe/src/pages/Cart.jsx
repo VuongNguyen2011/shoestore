@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import Helmet from "../components/Helmet";
 import CartItem from "../components/CartItem";
@@ -44,17 +44,10 @@ const Cart = () => {
       cartItems.reduce((total, item) => total + Number(item.quantity), 0)
     );
   }, [cartItems]);
+  const history = useHistory();
 
   const submitOrder = async () =>{
-    const data = {
-      member: member,
-      cart : cartItems,
-      id:"nguyen"
-    }
-    const test = JSON.stringify(data);
-    const formData = new FormData();
-    formData.append("carts",cartItems);
-    formData.append("user",member);
+    
     await axios({
       method: "POST",
       url: "http://localhost:8000/api/add-oder",
@@ -62,14 +55,24 @@ const Cart = () => {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then(function (response) {
-        swal("Success", "Thêm thành công", "success");
-        console.log(response);
-        
-      })
-      .catch(function (response) {
-        swal("Error", "Thêm không thành công", "error");
+        if (response.data.status === 200) {
+          swal("Success", "Đặt hàng thành công", "success");
+          console.log(response);
+          localStorage.removeItem("cartItems");
+          setTimeout(function(){
+            window.location.reload(1);
+         }, 1000);
+        }
+        else{
+        swal("Error", "Đặt hàng thất bại", "error");
         console.log(response.data);
-      });
+        }})
+      .catch(function(res){
+        swal("Error", "Đặt hàng thất bại", "error");
+        console.log(res.data);
+      })
+        
+
 
   }
 

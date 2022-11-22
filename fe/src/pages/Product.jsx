@@ -14,6 +14,7 @@ import { remove } from "../redux/product-modal/productModalSlice";
 import { addItem } from "../redux/shopping-cart/cartItemsSlide";
 import numberWithCommas from "../utils/numberWithCommas";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import swal from "sweetalert";
 
 const Product = (props) => {
   //const product = productData.getProductBySlug(props.match.params.slug);
@@ -69,7 +70,7 @@ const Product = (props) => {
         quantity: quantity,
       };
       if (dispatch(addItem(newItem))) {
-        alert("Success");
+        swal("Success", "Thêm vào giỏ hàng thành công", "success");
       } else {
         alert("Fail");
       }

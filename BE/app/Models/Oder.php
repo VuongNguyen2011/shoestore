@@ -9,16 +9,12 @@ class Oder extends Model
 {
     use HasFactory;
     protected $table ="oder";
-    protected $filtable = [ 
+    protected $filtable = [
         'memberID',
         'memberName',
         'phone',
         'cost',
         'status',
         'address'
-    ];  
-
-    public function oderDetails(){
-        return $this->hasMany(OderDetails::class, 'oder_id','id' );
-    }
+    ];
 }
