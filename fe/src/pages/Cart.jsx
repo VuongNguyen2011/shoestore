@@ -16,24 +16,26 @@ const Cart = () => {
   // const [cartProducts, setCartProducts] = useState(
   //   productData.getCartItemsInfo(cartItems)
   // );
-  const member = useSelector((state) => state.cartItems.valueUser);
-  //console.log(member)
+  const member = localStorage.getItem('user');
+  let obj = JSON.parse(member);
   const [totalProducts, setTotalProducts] = useState(0);
 
   const [totalPrice, setTotalPrice] = useState(0);
-
+  const his = useHistory();
   const [checkInput,setCheckInput] = useState({
-    memberID : member.id,
-    memberName: member.name,
-    phone: member.phone,
+    memberID : obj.id ? obj.id : '',
+    memberName: obj.name ? obj.name : '',
+    phone: obj.phone? obj.phone : '',
     cost: totalPrice,
     status:'0',
-    address:member.address,
+    address:obj.address ? obj.address : '',
     cart: cartItems
   })
 
   useEffect(() => {
     //setCartProducts(productData.getCartItemsInfo(cartItems));
+    console.log(obj.id);
+
     setTotalPrice(
       cartItems.reduce( 
         (total, item) => total + Number(item.quantity) * Number(item.price),
@@ -47,30 +49,35 @@ const Cart = () => {
   const history = useHistory();
 
   const submitOrder = async () =>{
-    
-    await axios({
-      method: "POST",
-      url: "http://localhost:8000/api/add-oder",
-      data: checkInput,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then(function (response) {
-        if (response.data.status === 200) {
-          swal("Success", "Đặt hàng thành công", "success");
-          console.log(response);
-          localStorage.removeItem("cartItems");
-          setTimeout(function(){
-            window.location.reload(1);
-         }, 1000);
-        }
-        else{
-        swal("Error", "Đặt hàng thất bại", "error");
-        console.log(response.data);
-        }})
-      .catch(function(res){
-        swal("Error", "Đặt hàng thất bại", "error");
-        console.log(res.data);
+    if(localStorage.getItem('accessToken')){
+      await axios({
+        method: "POST",
+        url: "http://localhost:8000/api/add-oder",
+        data: checkInput,
+        headers: { "Content-Type": "multipart/form-data" },
       })
+        .then(function (response) {
+          if (response.data.status === 200) {
+            swal("Success", "Đặt hàng thành công", "success");
+            console.log(response);
+            localStorage.removeItem("cartItems");
+            setTimeout(function(){
+              window.location.reload(1);
+           }, 1000);
+          }
+          else{
+          swal("Error", "Đặt hàng thất bại", "error");
+          console.log(response.data);
+          }})
+        .catch(function(res){
+          swal("Error", "Đặt hàng thất bại", "error");
+          console.log(res.data);
+        })
+      // console.log(1)
+    }else{
+      swal("Error", "vui lòng đăng nhập", "error");
+      his.replace('/login');
+    }
         
 
 
