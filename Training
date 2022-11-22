@@ -11,6 +11,7 @@ git clone https://github.com/VuongNguyen2011/shoestore.git
 cd fe
 npm install 
 npm install axios
+npm install react-date-picker
 // BackEnd
 cd BE
 composer install

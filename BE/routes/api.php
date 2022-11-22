@@ -6,8 +6,7 @@ use App\Http\Controllers\API\SizesController;
 use App\Http\Controllers\API\ColorsController;
 use App\Http\Controllers\API\OderController;
 use App\Http\Controllers\API\OderDetailsController;
-use App\Models\colors;
-use App\Models\OderDetails;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -54,9 +53,10 @@ Route::delete('/delete-category/{id}',[CategoryController::class,'delete']);
 Route::put('/update-category/{id}',[CategoryController::class,'update']);
 Route::post('/add-category',[CategoryController::class,'add']);
 //===========================================
-//               API ORDERS 
+//               API ORDERS
 // ==========================================
 Route::get('/oders', [OderController::class,'index']);
+Route::post('/add-oder', [OderController::class,'add']);
 
 // ==========================================
 //              API ORDERDETAIL

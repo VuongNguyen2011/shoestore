@@ -7,18 +7,30 @@ import Helmet from "../components/Helmet";
 import CartItem from "../components/CartItem";
 import Button from "../components/Button";
 
-import productData from "../assets/fake-data/products";
 import numberWithCommas from "../utils/numberWithCommas";
+import axios from "axios";
+import swal from "sweetalert";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cartItems.value);
   // const [cartProducts, setCartProducts] = useState(
   //   productData.getCartItemsInfo(cartItems)
   // );
-
+  const member = useSelector((state) => state.cartItems.valueUser);
+  //console.log(member)
   const [totalProducts, setTotalProducts] = useState(0);
 
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const [checkInput,setCheckInput] = useState({
+    memberID : '',
+    memberName: '',
+    phone:'',
+    cost:'',
+    status:'',
+    address:'',
+    cart: []
+  })
 
   useEffect(() => {
     //setCartProducts(productData.getCartItemsInfo(cartItems));
@@ -33,6 +45,34 @@ const Cart = () => {
     );
   }, [cartItems]);
 
+  const submitOrder = async () =>{
+    const data = {
+      member: member,
+      cart : cartItems,
+      id: 'id'
+    }
+    
+    const formData = new FormData();
+    formData.append("carts",cartItems);
+    formData.append("user",member);
+    await axios({
+      method: "POST",
+      url: "http://localhost:8000/api/add-oder",
+      data: data,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(function (response) {
+        swal("Success", "Thêm thành công", "success");
+        console.log(response);
+        
+      })
+      .catch(function (response) {
+        swal("Error", "Thêm không thành công", "error");
+        console.log(response.data);
+      });
+
+  }
+
   return (
     <Helmet title="Giỏ hàng">
       <div className="cart">
@@ -45,7 +85,8 @@ const Cart = () => {
             </div>
           </div>
           <div className="cart__info__btn">
-            <Button color='btn-danger' size="block">Đặt hàng</Button>
+            <Button color='btn-danger' onClick={()=> submitOrder()} size="block">Đặt hàng</Button>
+            
             <Link to="/catalog">
               <Button color = 'btn-light' size="block">Tiếp tục mua hàng</Button>
             </Link>

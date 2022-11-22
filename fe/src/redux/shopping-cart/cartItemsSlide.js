@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const items = localStorage.getItem('cartItems') !== null ? JSON.parse(localStorage.getItem('cartItems')) : []
+const users = localStorage.getItem('user') !== null ? JSON.parse(localStorage.getItem('user')) : []
 
 const initialState = {
     value: items,
+    valueUser: users
 }
 
 export const cartItemsSlice = createSlice({
@@ -33,6 +35,12 @@ export const cartItemsSlice = createSlice({
                 }]
 
             }
+            localStorage.setItem('user', JSON.stringify({
+                'id':'1',
+                'name' :'name',
+                'phone' : 'phone',
+                'address' : 'address'
+            }))
             localStorage.setItem('cartItems', JSON.stringify(state.value.sort((a, b) => a.id > b.id ? 1 : (a.id < b.id ? -1 : 0))))
         },
         updateItem: (state, action) => {

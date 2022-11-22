@@ -13,7 +13,7 @@ const CartItem = (props) => {
   const itemRef = useRef(null);
 
   const [item, setItem] = useState(props.item);
-  console.log(item)
+  // console.log(item)
   const [quantity, setQuantity] = useState(props.item.quantity);
 
   useEffect(() => {

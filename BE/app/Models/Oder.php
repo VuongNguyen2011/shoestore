@@ -11,7 +11,10 @@ class Oder extends Model
     protected $table ="oders";
     protected $filtable = [
         'memberID',
+        'memberName',
+        'phone',
         'cost',
-        'status'
+        'status',
+        'address'
     ];
 }
