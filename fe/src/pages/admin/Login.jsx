@@ -15,9 +15,9 @@ const Login = () => {
 
 
   return (
-        <div className=" row justify-content-center pt-5" id = "align-center-login-admin">
+        <div className=" row justify-content-center pt-5" style={{margin: '150px auto'}}>
           <div className=" col-sm-3">
-            <div className=" card p-4">
+            <div className=" card p-4" style={{backgroundColor: '#eff'}}>
               <center><h3>ADMIN LOGIN</h3></center>
               <div className="form-group mt-3">
                 <input type="email" className="form-control" placeholder="Email" id="email"

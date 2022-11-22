@@ -97,7 +97,7 @@ const Header = () => {
 
             <div className=" header__menu__item header__menu__right__item" id="size-small-checkin">
               <Link to="/login" style={{fontSize: '20px'}}>
-                Đăng nhập /
+                Đăng nhập
               </Link>
             </div>
             
