@@ -20,6 +20,12 @@ class Home extends Component {
   };
 
   async componentDidMount() {
+    if(localStorage.getItem('accessToken')){
+      const res = await axios.get(
+        `http://localhost:8000/api/user`,{ headers: {'Authorization' : `Bearer ${localStorage.getItem('accessToken')}`} }
+      );
+      localStorage.setItem('user',JSON.stringify(res.data));
+    }
     const res = await axios.get("http://localhost:8000/api/products");
     console.log(res.data.status);
     if (res.data.status === 200) {
