@@ -31,3 +31,5 @@ react-redux
 - php artisan make:migration create_table_products
 - php artisan make:controller API/_tenTableController
 - php artisan migrate
+
+Run web: "C:\Program Files \Google\Chrome\Application\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=~/chromeTemp
