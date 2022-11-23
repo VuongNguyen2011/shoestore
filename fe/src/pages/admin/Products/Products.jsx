@@ -78,7 +78,7 @@ class Products extends Component {
             <td>{item.status}</td>
             <td><img id={`img1${item.id}`} style={{width: '90px', height:'70px'}} src={item.image01} alt="" /></td>
             <td>
-              <a
+              <a style={{marginRight: '8px'}}
                 className="btn btn-success btn-sm"
                 href={`editproduct/${item.id}`}
               >
@@ -89,7 +89,7 @@ class Products extends Component {
                 onClick={(e) => this.deleteProduct(e, item.id)}
               >
                 {" "}
-                | Delete
+                Delete
               </a>
             </td>
           </tr>

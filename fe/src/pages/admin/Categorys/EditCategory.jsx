@@ -48,18 +48,18 @@ class EditCategory extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <div className="card">
+            <div className="card" style={{width: '500px', margin: '0 auto'}}>
               <div>
                 <h4>Update Category</h4>
-                <a className="btn btn-primary" href="/admin/categories">
+                <a style={{margin: '-50px 0 0 377px'}} className="btn btn-secondary" href="/admin/categories">
                   Back
                 </a>
               </div>
               <div>
                 <form onSubmit={this.updateCategory}>
                   <div>
-                    <label>Name</label>
-                    <input
+                    <label style={{fontSize: '1.2rem', color: 'black'}} >Name</label>
+                    <input style={{marginLeft:'20px', padding:'2px', width: '200px', borderRadius: '5px', border: '2px solid #2ad3ff', outline: 'none'}}
                       type={"text"}
                       name={"name"}
                       onChange={this.handleInput}
@@ -68,7 +68,7 @@ class EditCategory extends Component {
                   </div>
 
                   <div>
-                    <button type="submit"> Save </button>
+                    <button class="btn btn-primary" type="submit"> Save </button>
                   </div>
                 </form>
               </div>

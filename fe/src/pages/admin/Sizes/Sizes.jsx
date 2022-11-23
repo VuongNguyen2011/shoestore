@@ -57,7 +57,7 @@ class Sizes extends Component {
             <td>{item.id}</td>
             <td>{item.name}</td>
             <td>
-              <a
+              <a style={{marginRight: '8px'}}
                 className="btn btn-success btn-sm"
                 href={`editsize/${item.id}`}
               >
@@ -68,7 +68,7 @@ class Sizes extends Component {
                 onClick={(e) => this.deleteSize(e, item.id)}
               >
                 {" "}
-                | Delete
+                Delete
               </a>
             </td>
           </tr>

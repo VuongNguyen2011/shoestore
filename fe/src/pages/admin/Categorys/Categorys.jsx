@@ -57,7 +57,7 @@ class Categorys extends Component {
             <td>{item.id}</td>
             <td>{item.name}</td>
             <td>
-              <a
+              <a style={{marginRight:'8px'}}
                 className="btn btn-success btn-sm"
                 href={`editcategory/${item.id}`}
               >
@@ -68,7 +68,7 @@ class Categorys extends Component {
                 onClick={(e) => this.deleteCategory(e, item.id)}
               >
                 {" "}
-                | Delete
+                Delete
               </a>
             </td>
           </tr>
