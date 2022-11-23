@@ -1,4 +1,7 @@
+import axios from "axios";
 import React, { useRef } from "react";
+import { Link, useHistory } from "react-router-dom";
+import swal from "sweetalert";
 
 import "./dropdown.css";
 
@@ -19,7 +22,19 @@ const clickOutsideRef = (content_ref, toggle_ref) => {
 const Dropdown = (props) => {
   const dropdown_toggle_el = useRef(null);
   const dropdown_content_el = useRef(null);
+  const Logout = async () => {
+    // const history = useHistory();
 
+    // const res = await axios.post(
+    //   "http://localhost:8000/api/logout",
+    //   { headers: {'Authorization' : `Bearer ${localStorage.getItem('accessTokenAdmin')}`} }
+    // );
+    swal("Success","Đăng xuất thành công","success");
+    localStorage.removeItem("accessTokenAdmin");
+    // localStorage.removeItem("user");
+    // history.replace('/admin')
+    console.log(1);
+  };
   clickOutsideRef(dropdown_content_el, dropdown_toggle_el);
 
   return (
@@ -39,6 +54,16 @@ const Dropdown = (props) => {
               props.renderItems(item, index)
             )
           : ""}
+        {
+          <>
+          <Link to="/admin" onClick={Logout} >
+                      <div className="notification-item" >
+                        <i className={'bx bx-log-out-circle bx-rotate-180'} ></i>
+                        <span>Logout</span>
+                      </div>
+                    </Link>
+                  </>
+        }  
         {props.renderFooter ? (
           <div className="dropdown__footer">{props.renderFooter()}</div>
         ) : (

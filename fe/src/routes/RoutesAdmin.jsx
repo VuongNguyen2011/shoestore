@@ -20,6 +20,7 @@ import Orders from "../pages/admin/Orders/Orders";
 import OrderDetail from "../pages/admin/Orders/OrderDetail";
 import Login from "../pages/admin/Login";
 import StatisticalReport from "../pages/admin/StatisticalReport/StatisticalReport";
+import Logout from "../pages/admin/logout";
 
 const RoutesAdmin = () => {
   return (

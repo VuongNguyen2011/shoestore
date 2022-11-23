@@ -2,7 +2,7 @@ import React from 'react'
 
 import './topnav.css'
 
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 // import Dropdown from '../dropdown/Dropdown'
 import Dropdown from '../dropdown/Dropdown'
@@ -14,11 +14,14 @@ import notifications from '../../assets/JsonData/notification.json'
 import user_image from '../../assets/imagesAdmin/admin.png'
 
 import user_menu from '../../assets/JsonData/user_menus.json'
+import axios from 'axios'
+import swal from 'sweetalert'
 
 const curr_user = {
     display_name: 'Admin',
     image: user_image
 }
+
 
 const renderNotificationItem = (item, index) => (
     <div className="notification-item" key={index}>
@@ -38,8 +41,8 @@ const renderUserToggle = (user) => (
     </div>
 )
 
-const renderUserMenu =(item, index) => (
-    <Link to='/' key={index}>
+const renderUserMenu = (item, index) => (
+    <Link onClick={item.path} key={index}>
         <div className="notification-item">
             <i className={item.icon}></i>
             <span>{item.content}</span>
@@ -48,6 +51,7 @@ const renderUserMenu =(item, index) => (
 )
 
 const Topnav = () => {
+   
     return (
         <div className='topnav'>
             <div className="topnav__search">
@@ -62,6 +66,7 @@ const Topnav = () => {
                         contentData={user_menu}
                         renderItems={(item, index) => renderUserMenu(item, index)}
                     />
+                    
                 </div>
                 <div className="topnav__right-item">
                     <Dropdown
@@ -74,7 +79,7 @@ const Topnav = () => {
                     {/* dropdown here */}
                 </div>
                 <div className="topnav__right-item">
-                    <ThemeMenu/>
+                    <ThemeMenu />
                 </div>
             </div>
         </div>

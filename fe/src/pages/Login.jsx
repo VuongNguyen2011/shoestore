@@ -16,7 +16,9 @@ export default function SignInPage() {
     }
     const res = await axios.post(
       "http://localhost:8000/api/login",
-      state
+      state,{
+        headers: { "Access-Control-Allow-Origin": "*" }
+      }
     );
     if (res.data.status === 200) {
       swal("Success","Đăng nhập thành công","success");

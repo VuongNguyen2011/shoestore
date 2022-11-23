@@ -10,4 +10,4 @@ export default function App() {
 
   const checkLayoutClient = location.pathname.split('/')[1] === 'admin' ? false : true;
   
-  return <>{checkLayoutClient ? <Layout /> : <LayoutAdmin />}</>;}
+  return <>{checkLayoutClient ? <Layout /> : !localStorage.getItem('accessTokenAdmin') ? <Login/> : <LayoutAdmin />}</>;}

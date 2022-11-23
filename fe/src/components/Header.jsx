@@ -1,5 +1,7 @@
+import axios from "axios";
 import React, { useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import swal from "sweetalert";
 
 import logo from "../assets/images/logo 3.png";
 
@@ -27,6 +29,8 @@ const mainNav = [
 ];
 
 const Header = () => {
+  const history = useHistory();
+
   const { pathname } = useLocation();
   const activeNav = mainNav.findIndex((e) => e.path === pathname);
 
@@ -47,7 +51,18 @@ const Header = () => {
       window.removeEventListener("scroll");
     };
   }, []);
-
+  const Logout = async () => {
+  
+    // const res = await axios.post(
+    //   "http://localhost:8000/api/logout",
+    //   { headers: {'Authorization' : `Bearer ${localStorage.getItem('accessToken')}`} }
+    // );
+    swal("Success","Đăng xuất thành công","success");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+    history.replace('/')
+    
+  };
   const menuLeft = useRef(null);
 
   const menuToggle = () => menuLeft.current.classList.toggle("active");
@@ -71,9 +86,8 @@ const Header = () => {
             {mainNav.map((item, index) => (
               <div
                 key={index}
-                className={`header__menu__item header__menu__left__item ${
-                  index === activeNav ? "active" : ""
-                }`}
+                className={`header__menu__item header__menu__left__item ${index === activeNav ? "active" : ""
+                  }`}
                 onClick={menuToggle}
               >
                 <Link to={item.path}>
@@ -91,21 +105,38 @@ const Header = () => {
                 <i className="bx bx-shopping-bag"></i>
               </Link>
             </div>
-            <div className="header__menu__item header__menu__right__item">
-              <i className="bx bx-user"></i>
-            </div>
-            <div className=" header__menu__item header__menu__right__item" id="size-small-checkin">
-              <Link to="/login" style={{fontSize: '20px'}}>
-                Đăng nhập
-              </Link>
-            </div>
-            
-            <div className=" header__menu__item header__menu__right__item" id="size-small-checkin">
-            <Link to="/register" style={{fontSize: '20px'}}>
-                Đăng ký
-              </Link>
-              </div>
-              
+
+            {
+              localStorage.getItem('accessToken') ?
+                <>
+                  <div className="header__menu__item header__menu__right__item">
+                    <i className="bx bx-user"></i>
+                  </div>
+                  <div className=" header__menu__item header__menu__right__item" id="size-small-checkin">
+                    <Link to="" onClick={Logout} style={{ fontSize: '20px' }}>
+                      <div className="notification-item" style={{paddingLeft:'0px'}}>
+                        <i className={'bx bx-log-out-circle bx-rotate-180'} style={{marginRight:'10px'}}></i>
+                        <span>Logout</span>
+                      </div>
+                    </Link>
+                  </div>
+                </>
+                :
+                <>
+                  <div className=" header__menu__item header__menu__right__item" id="size-small-checkin">
+                    <Link to="/login" style={{ fontSize: '20px' }}>
+                      Đăng nhập
+                    </Link>
+                  </div>
+
+                  <div className=" header__menu__item header__menu__right__item" id="size-small-checkin">
+                    <Link to="/register" style={{ fontSize: '20px' }}>
+                      Đăng ký
+                    </Link>
+                  </div>
+                </>
+            }
+
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ const Cart = () => {
   //   productData.getCartItemsInfo(cartItems)
   // );
   const member = localStorage.getItem('user');
-  let obj = JSON.parse(member);
+  let obj = !member ? '' : JSON.parse(member);
   const [totalProducts, setTotalProducts] = useState(0);
 
   const [totalPrice, setTotalPrice] = useState(0);
@@ -34,7 +34,6 @@ const Cart = () => {
 
   useEffect(() => {
     //setCartProducts(productData.getCartItemsInfo(cartItems));
-    console.log(obj.id);
 
     setTotalPrice(
       cartItems.reduce( 
@@ -54,7 +53,8 @@ const Cart = () => {
         method: "POST",
         url: "http://localhost:8000/api/add-oder",
         data: checkInput,
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "Content-Type": "multipart/form-data",
+        "Access-Control-Allow-Origin": "*" },
       })
         .then(function (response) {
           if (response.data.status === 200) {

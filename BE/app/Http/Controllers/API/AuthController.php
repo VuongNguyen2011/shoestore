@@ -29,7 +29,7 @@ class AuthController extends Controller
             ]);
         }
         $data = [
-            'name' =>'nguyen',
+            'name' =>$request->name,
             'email' => $request->user,
             'phone' => $request->phone,
             'address' => $request->address,
