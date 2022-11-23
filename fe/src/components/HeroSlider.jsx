@@ -90,9 +90,9 @@ const HeroSliderItem = (props) => (
         </Link>
       </div>
     </div>
-    <div className="hero-slider__item__image">
+    <div className="hero-slider__item__image" style={{position: 'relative'}}>
       <div className={`shape bg-${props.item.color}`}></div>
-      <img src={props.item.img} alt="" />
+      <img style={{width: '300px', height: '200px', position: 'absolute', top: '45%', left: '10%'}} src={props.item.img} alt="" />
     </div>
   </div>
 );

@@ -9,4 +9,4 @@ export default function App() {
   console.log(location)
 
   const checkLayoutClient = location.pathname.split('/')[1] === 'admin' ? false : true;
-  return <>{checkLayoutClient ? <Layout /> : <Login />}</>;}
+  return <>{checkLayoutClient ? <Layout /> : <LayoutAdmin />}</>;}

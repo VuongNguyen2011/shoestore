@@ -50,18 +50,18 @@ class EditSize extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <div className="card">
+            <div className="card" style={{width: '500px', margin: '0 auto'}}>
               <div>
                 <h4>Update Size</h4>
-                <a className="btn btn-primary" href="/admin/sizes">
+                <a style={{margin: '-50px 0 0 377px'}} className="btn btn-secondary" href="/admin/sizes">
                   Back
                 </a>
               </div>
               <div>
                 <form onSubmit={this.updateSize}>
                   <div>
-                    <label>Size</label>
-                    <input
+                    <label style={{fontSize: '1.2rem', color: 'black'}}>Size</label>
+                    <input style={{marginLeft:'20px', padding:'2px', width: '200px', borderRadius: '5px', border: '2px solid #2ad3ff', outline: 'none'}}
                       type={"text"}
                       name={"name"}
                       onChange={this.handleInput}
@@ -70,7 +70,7 @@ class EditSize extends Component {
                   </div>
 
                   <div>
-                    <button type="submit"> Save </button>
+                    <button class="btn btn-primary" type="submit"> Save </button>
                   </div>
                 </form>
               </div>

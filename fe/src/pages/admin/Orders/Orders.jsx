@@ -45,7 +45,7 @@ export default class Orders extends Component {
             <td>{item.cost}</td>
             <td>{item.status}</td>
             <td>
-              <a
+              <a 
                 href={`orderdetail/${item.id}`}
                 className="btn btn-primary btn-sm"
               >

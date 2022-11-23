@@ -58,7 +58,7 @@ class Colors extends Component {
             <td>{item.id}</td>
             <td>{item.name}</td>
             <td>
-              <a
+              <a style={{marginRight: '8px'}}
                 className="btn btn-success btn-sm"
                 href={`editcolor/${item.id}`}
               >
@@ -69,7 +69,7 @@ class Colors extends Component {
                 onClick={(e) => this.deleteColor(e, item.id)}
               >
                 {" "}
-                | Delete
+                Delete
               </a>
             </td>
           </tr>
@@ -82,7 +82,7 @@ class Colors extends Component {
           <div className="row">
             <div className="col-md-12">
               <div className="card">
-                <div
+                <div 
                   className="card-header"
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
