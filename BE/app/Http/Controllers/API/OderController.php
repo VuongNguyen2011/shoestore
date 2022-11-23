@@ -66,11 +66,24 @@ class OderController extends Controller
             'message' => $oderDetai
         ]);
     }
-    public function oderdetails(Request $request, $id) {
-        // $oderdetail = OderDetails::find($id);
-        // $colors = DB::table('colors')
-        //     ->select('colors.id', 'colors.name')
+    public function getByID(Request $request, $id) {
+        $rs = Oder::where('memberID', $id)->get();
+        return response()->json([
+            'status' => 200,
+            'order' => $rs
+        ]);
     }
+    public function update(Request $request,$id){
+        $rs = Oder::find($id);
+        $rs->status = $request->input('status');
 
+        $rs->update();
+        $oder = Oder::all();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Oder updated successfully',
+            'order' => $oder
+        ]);
+    }
 
 }

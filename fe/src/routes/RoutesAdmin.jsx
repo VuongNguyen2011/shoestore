@@ -41,7 +41,7 @@ const RoutesAdmin = () => {
       <Route path="/admin/addproduct" component={AddProduct} />
       <Route path="/admin/editproduct/:id" component={EditProduct} />
       <Route path="/admin/orders" component={Orders} />
-      <Route path="/admin/orderdetail" component={OrderDetail} />
+      <Route path="/admin/orderdetail/:id" component={OrderDetail} />
       <Route path="/admin/statistical" component={StatisticalReport} />
       <Route path="/admin/login" component={Login} />
     </Switch>

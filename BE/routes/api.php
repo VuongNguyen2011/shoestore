@@ -60,13 +60,15 @@ Route::post('/add-category',[CategoryController::class,'add']);
 //               API ORDERS
 // ==========================================
 Route::get('/oders', [OderController::class,'index']);
+Route::get('/odersByID/{id}', [OderController::class,'getByID']);
 Route::post('/add-oder', [OderController::class,'add']);
+Route::post('/update-oder/{id}',[OderController::class,'update']);
 
 // ==========================================
 //              API ORDERDETAIL
 // ==========================================
 Route::get('/oderdetails', [OderDetailsController::class,'index']);
-Route::get('/orderdetailbyID/{id}', [OderDetailsController::class,'orderdetailbyID']);
+Route::get('/orderdetailbyID/{id}', [OderDetailsController::class,'edit']);
 
 // ==========================================
 

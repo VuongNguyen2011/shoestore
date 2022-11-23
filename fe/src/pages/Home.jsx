@@ -129,14 +129,16 @@ class Home extends Component {
           <SectionTitle>sản phẩm mới</SectionTitle>
           <SectionBody>
             <Grid col={4} mdCol={2} smCol={1} gap={20}>
-              {productData.getProducts(8).map((item, index) => (
+            {this.state.products.slice(5,9).map((item, index) => (
                 <ProductCard
                   key={index}
+                  id={item.id}
                   img01={item.image01}
                   img02={item.image02}
                   name={item.title}
                   price={Number(item.price)}
-                  slug={item.slug}
+                  categorySlug={item.categorySlug}
+                  list={this.state.products}
                 />
               ))}
             </Grid>
@@ -159,14 +161,16 @@ class Home extends Component {
           <SectionTitle>phổ biến</SectionTitle>
           <SectionBody>
             <Grid col={4} mdCol={2} smCol={1} gap={20}>
-              {productData.getProducts(12).map((item, index) => (
+            {this.state.products.slice(10,14).map((item, index) => (
                 <ProductCard
                   key={index}
+                  id={item.id}
                   img01={item.image01}
                   img02={item.image02}
                   name={item.title}
                   price={Number(item.price)}
-                  slug={item.slug}
+                  categorySlug={item.categorySlug}
+                  list={this.state.products}
                 />
               ))}
             </Grid>

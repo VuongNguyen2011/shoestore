@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import "../../../assets/css/grid.css";
-import "../../../assets/css/index.css";
-import "../../../assets/css/theme.css";
+import "../assets/css/grid.css";
+import "../assets/css/index.css";
+import "../assets/css/theme.css";
 
 export default class OrderDetail extends Component {
   state = {
@@ -76,7 +76,7 @@ export default class OrderDetail extends Component {
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <h4>Order Detail</h4>
-                  <a className="btn btn-primary" href="/admin/orders">
+                  <a className="btn btn-primary" href="/oder">
                     Back
                   </a>
                 </div>

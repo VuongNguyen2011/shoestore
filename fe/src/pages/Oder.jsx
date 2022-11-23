@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import "../../../assets/css/grid.css";
-import "../../../assets/css/index.css";
-import "../../../assets/css/theme.css";
+import "../assets/css/grid.css";
+import "../assets/css/index.css";
+import "../assets/css/theme.css";
 import swal from "sweetalert";
 
-export default class Orders extends Component {
+export default class Oder extends Component {
   state = {
     name: "",
     order: [],
@@ -14,7 +14,10 @@ export default class Orders extends Component {
   };
 
   async componentDidMount() {
-    const res = await axios.get("http://localhost:8000/api/oders");
+    const member = localStorage.getItem('user');
+    let obj = JSON.parse(member);
+
+    const res = await axios.get(`http://localhost:8000/api/odersByID/${obj.id}`);
     console.log(res.data.status);
     if (res.data.status === 200) {
       this.setState({
@@ -26,15 +29,17 @@ export default class Orders extends Component {
   updateStatus = async (e, id, status) => {
     const thidClicked = e.currentTarget;
     
-    const res = await axios.post(
-      `http://localhost:8000/api/update-oder/${id}`,{'status': Number(status) +1}
-    );
-    if (res.data.status === 200) {
-      swal("Success","Cập nhật thành công","success");
-      this.setState({
-        order: res.data.order,
-        loading: false,
-      });
+    if(status == 1){
+      const res = await axios.post(
+        `http://localhost:8000/api/update-oder/${id}`,{'status': Number(status) +1}
+      );
+      if (res.data.status === 200) {
+        swal("Success","Nhận hàng thành công","success");
+        this.setState({
+          order: res.data.order,
+          loading: false,
+        });
+      }
     }
     console.log(id)
   };
